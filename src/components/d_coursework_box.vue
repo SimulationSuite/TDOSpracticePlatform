@@ -820,6 +820,7 @@ export default {
     confirmQuestionBack() {
       let that = this;
 
+      let obj = {};
       if (that.timeStatus == 1) {
         /*
         let datetime=that.homework.endTime.getFullYear() + '-' + (that.homework.endTime.getMonth() + 1) + '-' + that.homework.endTime.getDate() + ' ' + that.homework.endTime.getHours() + ':' + that.homework.endTime.getMinutes() + ':' + that.homework.endTime.getSeconds();
@@ -846,23 +847,21 @@ export default {
           return that.$toast("作业截止时间不能小于当前时间", 3000);
         }
         obj.end_at = that.homework.endTime;
-      } else {
-        that.isConfirmWork = false;
-        let obj = {};
-        obj.id = that.assignmentId;
-        obj.status = 1;
-        // alert(that.assignmentId);
-        modifyAssignmentStatusById(JSON.stringify(obj)).then((res) => {
-          if (res.code == 200) {
-            this.$toast("发布成功，不可修改", 2000);
-            that.canEdit = 0;
-            // alert("确认成功，不可修改");
-          } else {
-            // alert("确认失败");
-            this.$toast(res.message, 2000);
-          }
-        });
       }
+      that.isConfirmWork = false;
+      obj.id = that.assignmentId;
+      obj.status = 1;
+      // alert(that.assignmentId);
+      modifyAssignmentStatusById(JSON.stringify(obj)).then((res) => {
+        if (res.code == 200) {
+          this.$toast("发布成功，不可修改", 2000);
+          that.canEdit = 0;
+          // alert("确认成功，不可修改");
+        } else {
+          // alert("确认失败");
+          this.$toast(res.message, 2000);
+        }
+      });
     },
 
     //删除当前作业
