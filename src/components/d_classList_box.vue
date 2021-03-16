@@ -257,7 +257,7 @@ export default{
             let temp = [];
             for(let j = 0,  len = that.classList.length; j < len; j++){
                 let  obj = {};
-                obj.per_page = 500;
+                obj.per_page = 1000000;
                 obj.page = that.page
                 obj.classIds = [];
                 obj.classIds.push(that.classList[j].id)
