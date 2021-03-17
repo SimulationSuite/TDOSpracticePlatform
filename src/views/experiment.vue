@@ -814,14 +814,16 @@ export default {
             if (that.editValue=='') {
                return that.$toast("请输入文件名称",3000)
             }
-            that.isEdit=false
+            let name=that.editValue
+       
             let obj={}
             obj.containerId = that.container.containerId
             obj.fileName = that.editValue
             downloadCode(obj).then(res=>{
+                that.isEdit=false
                 if (res.code==200) {
                     if (res.data!=null) {
-                        that.downloadfile(that.editValue,atob(res.data))                
+                        that.downloadfile(name,atob(res.data))                
                     }else {
                         that.$toast("输入的文件不存在",3000)
                     }
