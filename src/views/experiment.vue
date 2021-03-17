@@ -335,9 +335,10 @@ export default {
             obj.courseId = courseId
             createContainers(obj).then(res=>{
                 if (res.code==200) {
+                    console.log(res.data)
                    
                     for(var i =0;i<res.data.length;i++){
-                         res.data[i].isFirst = true,
+                         res.data[i].isFirst = true;
                                res.data[i].isLink = false; //是否连接
                                res.data[i].restart = false;
                      }
@@ -820,7 +821,7 @@ export default {
             downloadCode(obj).then(res=>{
                 if (res.code==200) {
                     if (res.data!=null) {
-                        that.downloadfile(atob(res.data))                
+                        that.downloadfile(that.editValue,atob(res.data))                
                     }else {
                         that.$toast("输入的文件不存在",3000)
                     }
@@ -928,12 +929,12 @@ export default {
             }
             that.click_back()
         },
-        downloadfile(data){
+        downloadfile(filename,data){
             const blob = new Blob([data], {type: "text/plain"})
             //const blob = new Blob([data], {type: 'audio/wav'})
             const a= document.createElement("a")
             a.href = URL.createObjectURL(blob)
-            a.download = "fileName" // 这里填保存成的文件名
+            a.download = filename // 这里填保存成的文件名
             a.click()
             URL.revokeObjectURL(a.href)
 　　　       a.remove();
