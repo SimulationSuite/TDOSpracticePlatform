@@ -378,7 +378,7 @@ export default {
 
             obj.id=that.experiment.id
             obj.duration = that.time
-            obj.end_at = that.endTime
+            obj.end_at = new Date(that.endTime).toUTCString();
             obj.report_requirement = that.reportinfo
             that.isSet=false
             // console.log(obj)

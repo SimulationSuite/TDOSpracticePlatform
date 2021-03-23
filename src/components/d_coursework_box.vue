@@ -585,11 +585,10 @@ export default {
         if (dates1 < dates3) {
           return that.$toast("作业截止时间不能小于课程开始时间", 3000);
         }
-
-        obj.end_at = that.homework.endTime;
+        obj.end_at =  new Date(that.homework.endTime).toUTCString();
       } else {
         var date = new Date();
-        obj.end_at = date.toLocaleDateString();
+        obj.end_at = new Date(date.toLocaleDateString()).toUTCString();
       }
       obj.qualified_score = 100;
 

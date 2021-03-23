@@ -435,6 +435,10 @@ export default {
                 return value1 - value2;
             }
         },
+
+
+
+
         modifyCourseTime(){
             let that = this;
             let obj = {};
@@ -448,10 +452,8 @@ export default {
              if(that.endTime == ''){
               return this.$toast('开课结束时间不能为空',2000)
             }
-            obj.start = that.startTime;
-            //that.endTime=that.endTime.getFullYear() + '-' + (that.endTime.getMonth() + 1) + '-' + that.endTime.getDate();
-
-            obj.end = that.endTime;
+            obj.start = new Date(that.startTime).toUTCString();
+            obj.end = new Date(that.endTime).toUTCString();
             obj.status = '';
             obj.user_id_list = [];
             // console.log(JSON.stringify(obj))
