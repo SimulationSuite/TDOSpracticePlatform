@@ -393,7 +393,8 @@ export default {
             that.curPage=page
             let obj={}
             obj.course_id = that.className
-            obj.isCorrect = -1
+            // obj.isCorrect = -1
+            obj.status = that.state
             obj.user_id =sessionStorage.getItem("userId")
             obj.name = that.searchTx
             obj.perPage=that.perPage

@@ -503,7 +503,7 @@ var layout =function(data){
 }
 //学生获取实验报告列表
 var findStudentExperimentReport =function(data){
-	return axios.get('/findStudentExperimentReport?course_id='+data.course_id+'&isCorrect='+data.isCorrect+'&name='+data.name+'&user_id='+data.user_id+'&perPage=' + data.perPage+ '&page=' +data.page)
+	return axios.get('/findStudentExperimentReport?course_id='+data.course_id+'&status='+data.status+'&name='+data.name+'&user_id='+data.user_id+'&perPage=' + data.perPage+ '&page=' +data.page)
 }
 
 export{
