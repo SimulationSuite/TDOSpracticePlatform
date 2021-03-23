@@ -845,7 +845,7 @@ export default {
         if (dates1 < dateNow) {
           return that.$toast("作业截止时间不能小于当前时间", 3000);
         }
-        obj.end_at = that.homework.endTime;
+        obj.end_at = new Date(that.homework.endTime).toUTCString();
       }
       that.isConfirmWork = false;
       obj.id = that.assignmentId;
@@ -967,10 +967,10 @@ export default {
         if (dates1 < dateNow) {
           return that.$toast("作业截止时间不能小于当前时间", 3000);
         }
-        obj.end_at = that.homework.endTime;
+        obj.end_at = new Date(that.homework.endTime).toUTCString();
       } else {
         var date = new Date();
-        obj.end_at = date.toLocaleDateString();
+        obj.end_at = date.toLocaleDateString().toUTCString();
       }
       console.log(JSON.stringify(obj));
       modifyAssignmentNameById(JSON.stringify(obj)).then((res) => {
