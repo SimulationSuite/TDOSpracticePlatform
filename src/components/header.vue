@@ -332,6 +332,7 @@ export default {
      }
   }
   @media screen and (min-width: 1500px) {
+    
     .nav_ul {
       > li {
         padding: 0 40px;
@@ -339,13 +340,17 @@ export default {
     }
   }
   @media screen and (max-width: 1380px) {
+    .header-container{margin: 0 30px;}
+
     .nav_ul {
       > li {
         padding: 0 20px;
       }
     }
+
   }
    @media screen and (max-width: 1280px) {
+   
     .nav_ul {
       > li {
         padding: 0 5px;
@@ -355,6 +360,7 @@ export default {
 }
 
 @media screen and (max-width: 1200px) {
+  
   .PP_header {
     width: 1200px;
     position:relative;
