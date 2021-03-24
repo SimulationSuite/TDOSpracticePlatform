@@ -126,16 +126,22 @@ export default{
         handleCurrentChange(params){ //第一个参数是第一个页数，第二个参数是当前选中的班级,第三个参数是当前班级以及选中的人数
            let that = this;
            let class_id = [];
+
            let temporary_checkList = params[2]
+           console.log(params);
            if(params[0]!=''){
               that.page = params[0];
            }
-           that.checkedList = temporary_checkList
+           
            if(params[1]!=''){
+              
               class_id.push(params[1])
               that.searchClassStudents(class_id)
+              
            }else{
+               that.checkedList = temporary_checkList
               that.searchClassStudents(that.checkedList)
+
            }
 
 
@@ -205,6 +211,7 @@ export default{
             obj.page = that.page
 
 
+        
             for(let i=0;i<list.length;i++){
                 classIds.push(list[i].id);
             }

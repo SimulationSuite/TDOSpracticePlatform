@@ -79,13 +79,14 @@
         <div class="tab-pagination">
             <el-pagination
             background
-            :current-page="curPage"
+            :current-page.sync ="curPage"
             :page-size="perPage"
             @current-change="handleCurrentChange"
             layout="prev, pager, next,jumper"
             :total="total"
             >
             </el-pagination>
+           
         </div>
         <div class="btnbox">
            <a class="btnDefault pointer" @click="chooseStudent">确认选择</a>
@@ -165,7 +166,16 @@ export default{
         handleCurrentChange(val) {
           let that = this;
           this.select_flag = false;
-          that.$emit('handleCurrentChange',val,'',that.classList)  
+
+          if(that.class_value!=''){
+            let obj = {};
+            obj.id = that.class_value
+            that.$emit('handleCurrentChange',val,obj,that.classList)  
+          }
+          else{
+            that.$emit('handleCurrentChange',val,'',that.classList)  
+          }
+         
         },
 
         //学生用户班级选中
@@ -177,7 +187,10 @@ export default{
                obj = that.classList[i]
             }
           }
+          
           that.$emit('handleCurrentChange',1,obj,that.classList)
+          that.curPage = 1
+          console.log(that.curPage)
         },
 
         handleSelectionChange(val) {
