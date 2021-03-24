@@ -5,21 +5,21 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     navindex:0,
-    
+
     teacherNavindex:0, //老师端学生tab切换
     adminNavindex:0, //老师端学生tab切换
     studentNavindex:0, //老师端学生tab切换
 
-    uploadUrl:'http://192.168.1.138:8111/upload_excel',
-    pic_Url:'http://192.168.1.228:8080',
-    uploadUrlExcel: 'http://192.168.1.138:8111/upload_qb_excel',
-    dowmloadExcel: 'http://192.168.1.138:8111/download_qb_excel',
-    
+    uploadUrl:'http://ibwedu.f3322.net:8111/upload_excel',
+    pic_Url:'http://192.168.2.41:60000',
+    uploadUrlExcel: 'http://ibwedu.f3322.net:8111/upload_qb_excel',
+    dowmloadExcel: 'http://ibwedu.f3322.net:8111/download_qb_excel',
+
     ad_menus: [
       { text: "统计分析", path: "/admin" },
       { text: "课程管理", path: "/admin/courseManagement" },
       {
-        text: "库",
+        text: "资源库",
         path: "",
         children: [
           { text: "实验库", path: "/admin/experimentLibrary" },
@@ -45,8 +45,8 @@ export default new Vuex.Store({
       {text:'我的作业',path: "/student/myHomework"},
       {text:'我的笔记',path: "/student/myNotes"}
     ]
-    
-  
+
+
   },
   mutations: {
     updateNavindex(state, value) {
@@ -61,7 +61,7 @@ export default new Vuex.Store({
     updateStudentNavindex(state, value) {
       state.studentNavindex = value
     },
-    
+
   },
   actions: {
   },
