@@ -617,14 +617,15 @@ export default {
       let obj = {};
       let list = [];
       let obj1 = {};
-
       if (that.sindex != ""  && that.cindex != "") {
         that.cindex = "fb0a1080-b11e-427c-8567-56ca6105ea07";
       }
       if (that.cindex != "" && that.sindex == "") {
         that.sindex = "fb0a1080-b11e-427c-8567-56ca6105ea07";
       }
-
+      if (that.sindex != "" && that.cindex == "") {
+        that.cindex = "fb0a1080-b11e-427c-8567-56ca6105ea07";
+      }
       obj1.courseware_id = that.isdeleteId;
       obj1.section_id = that.sindex;
       obj1.chapter_id = that.cindex;
@@ -720,14 +721,14 @@ export default {
             }
           }else {
             //判断教师端
-           
+
             if (that.status!=-1&&that.typeData==1) {
               return true
             }else {
               return false
             }
-            
-          
+
+
           }
 
 
