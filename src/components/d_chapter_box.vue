@@ -414,7 +414,7 @@ export default{
                 } else if (that.chaptersOrsectio == 2) {
                     that.chapters[that.chaptersNum].sections.splice(that.sectionNum, 1)
                 } else {
-                    that.chapters[that.chaptersNum].sections[that.sectionNum].small_sections.splice(that.sectionNum, 1)
+                    that.chapters[that.chaptersNum].sections[that.sectionNum].small_sections.splice(that.smallSectionNum, 1)
                 }
             }
             that.isDelete = false;
