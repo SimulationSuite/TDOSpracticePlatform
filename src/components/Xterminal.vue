@@ -75,7 +75,6 @@ export default {
         this.$nextTick(function(){
             //let height = 0    
            let that = this
-           console.log(parseInt(that.xterm_height/17, 10))
            const term = new Terminal({
               rows:parseInt(that.xterm_height/17, 10),
               cursorBlink: true,
@@ -87,8 +86,6 @@ export default {
             term.loadAddon(fitAddon);
           
             term.open(document.getElementById("xterm"+this.id));
-          
-            console.log(document.getElementById("xterm"+this.id))
             //fitAddon.fit();
             term.focus();
             this.term = term;
@@ -103,7 +100,6 @@ export default {
     },
     initSocket() {
         //ws://192.168.1.167:4002 this.socketURI 
-      console.log(this.isShow)
       this.socket = new WebSocket(this.socketURI);
      
       this.socketOnClose();
@@ -115,7 +111,6 @@ export default {
       this.socket.onopen = () => {
         // 链接成功后
         this.initTerm();
-        console.log(' socket 连接成功')
         this.$parent.imageOpen()
       };
     },

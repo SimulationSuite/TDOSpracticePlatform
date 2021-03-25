@@ -335,14 +335,12 @@ export default {
             obj.courseId = courseId
             createContainers(obj).then(res=>{
                 if (res.code==200) {
-                    console.log(res.data)
                    
                     for(var i =0;i<res.data.length;i++){
                          res.data[i].isFirst = true;
                                res.data[i].isLink = false; //是否连接
                                res.data[i].restart = false;
                      }
-                      console.log(res.data)
                     that.containers = res.data
                     if (that.containers!=null&& that.containers.length>0&&that.containers[0]!=null) {
                         if (that.containers[0].status==1) {
@@ -359,8 +357,6 @@ export default {
                                res.data[i].restart = false;
                             }
                             that.opencontainers=res.data
-
-                            console.log(that.opencontainers)
                             // that.getState()
                         }
                         that.container = that.containers[0]
@@ -515,7 +511,7 @@ export default {
 
             createAndRunContainers(obj).then(res=>{
             that.remove=false
-            that.restartForMe=true
+            that.useractions=true
             if (res.code==200) {
 
                 // that.getState()
@@ -545,7 +541,7 @@ export default {
             })
            .catch((error) => {
              that.remove=false
-             that.restartForMe=true
+             that.useractions=true
             })
         },
         //添加实验报告
@@ -849,12 +845,14 @@ export default {
             }
             }else {
                 that.useractions=false
+          
             }
-           
+                   
         },
         imageOpen(){
             let that = this
             that.useractions=false
+         
         },
         // http图片转成base64，防止解决不了的图片跨域问题
         getBase64Image(img) {
