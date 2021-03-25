@@ -399,6 +399,7 @@ export default {
     searchUser(type, search, classes, page, per_page) {
       let that = this;
       let obj = {};
+      that.curPage = page;
       obj.type = type;
       obj.search = search;
       obj.classes = classes;
@@ -573,7 +574,7 @@ export default {
       let that = this;
       console.log(that.type);
       that.curPage = val;
-      that.searchUser(that.type, "", "", val, 10);
+      that.searchUser(that.type, "", that.className, val, 10);
       console.log(`当前页: ${val}`);
     },
     upLoad() {
@@ -612,7 +613,7 @@ export default {
     //下载模板
     downloadTemplate() {
       console.log("下载模板");
-      window.location.href = 'http://192.168.1.138:8111/download_excel';
+      window.location.href = 'http://ibwedu.f3322.net:8111/download_excel';
     },
 
     // 文件上传成功

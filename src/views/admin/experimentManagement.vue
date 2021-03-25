@@ -139,6 +139,7 @@ export default {
       getRunContainerList(type,classId,page){
           let that = this;
           let obj = {};
+          that.curPage = page;
           obj.type = type;
           obj.classId = classId;
           obj.page = page;
@@ -218,7 +219,7 @@ export default {
         }
         if (that.type1 == 2) {
             console.log('学生')
-            that.getRunContainerList(2,'',val);
+            that.getRunContainerList(2,that.className,val);
         }
         if (that.type1 == 0) {
             console.log('管理员')
