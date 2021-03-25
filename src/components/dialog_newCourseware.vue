@@ -242,6 +242,7 @@ export default {
       hasData:false,
       loading:false,//课件库是否在上传,
       upload_falg:0, //文件是否上传 0可以上传 1文件格式不对  2pdf文件太大 3视频文件太大
+      isDisable:true
     };
   },
   components: {
@@ -417,56 +418,61 @@ export default {
     //课件库选择确认选择
     confirmChoose() {
       let that = this;
-      if(that.chooseList.length == 0){
-        this.$toast("请选择课件", 3000)
-        return
-      }
-      if (that.sindex !== '') {
-        let obj = {};
-        let list = [];
-        for(let i = 0;i<that.chooseList.length;i++){
-          let obj1 = {};
-          obj1.courseware_id = that.chooseList[i].id
-          obj1.section_id = that.sindex;
-          obj1.chapter_id = "fb0a1080-b11e-427c-8567-56ca6105ea07";
-          list.push(obj1);
+      if(that.isDisable) {
+        that.isDisable = false;
+        if (that.chooseList.length == 0) {
+          this.$toast("请选择课件", 3000)
+          return
         }
-        obj.chapter_section_courseware_list = list
-        // console.log(JSON.stringify(obj))
-        addChapterSectionCourseware(JSON.stringify(obj)).then(res => {
-          if (res.code == 200) {
-            that.isnewFilter = false;
-            this.$toast("新增成功", 2000)
-            //that.reload();
-            that.$emit('getCoursewareBySectionId',that.sindex, "", 0, that.perPage, 1)
+        if (that.sindex !== '') {
+          let obj = {};
+          let list = [];
+          for (let i = 0; i < that.chooseList.length; i++) {
+            let obj1 = {};
+            obj1.courseware_id = that.chooseList[i].id
+            obj1.section_id = that.sindex;
+            obj1.chapter_id = "fb0a1080-b11e-427c-8567-56ca6105ea07";
+            list.push(obj1);
+          }
+          obj.chapter_section_courseware_list = list
+          // console.log(JSON.stringify(obj))
+          addChapterSectionCourseware(JSON.stringify(obj)).then(res => {
+            setTimeout(function (){that.isDisable = true}, 3000 )
+            if (res.code == 200) {
+              that.isnewFilter = false;
+              this.$toast("新增成功", 2000)
+              //that.reload();
+              that.$emit('getCoursewareBySectionId', that.sindex, "", 0, that.perPage, 1)
 
-          } else {
-            this.$toast(res.message, 2000)
+            } else {
+              this.$toast(res.message, 2000)
+            }
+          })
+        } else {
+          // console.log("章新增课件")
+          let obj = {};
+          let list = [];
+          for (let i = 0; i < that.chooseList.length; i++) {
+            let obj1 = {};
+            obj1.courseware_id = that.chooseList[i].id
+            obj1.section_id = "fb0a1080-b11e-427c-8567-56ca6105ea07";
+            obj1.chapter_id = that.cindex;
+            list.push(obj1);
           }
-        })
-      } else {
-        // console.log("章新增课件")
-        let obj = {};
-        let list = [];
-        for(let i = 0;i<that.chooseList.length;i++){
-          let obj1 = {};
-          obj1.courseware_id = that.chooseList[i].id
-          obj1.section_id = "fb0a1080-b11e-427c-8567-56ca6105ea07";
-          obj1.chapter_id = that.cindex;
-          list.push(obj1);
+          obj.chapter_section_courseware_list = list
+          // console.log(JSON.stringify(obj))
+          addChapterSectionCourseware(JSON.stringify(obj)).then(res => {
+            setTimeout(function (){that.isDisable = true}, 3000 )
+            if (res.code == 200) {
+              //alert("111")
+              that.isnewFilter = false;
+              this.$toast("新增成功", 2000)
+              that.reload();
+            } else {
+              this.$toast(res.message, 2000)
+            }
+          })
         }
-        obj.chapter_section_courseware_list = list
-        // console.log(JSON.stringify(obj))
-        addChapterSectionCourseware(JSON.stringify(obj)).then(res => {
-          if (res.code == 200) {
-            //alert("111")
-            that.isnewFilter = false;
-            this.$toast("新增成功", 2000)
-            that.reload();
-          } else {
-            this.$toast(res.message, 2000)
-          }
-        })
       }
 
     },

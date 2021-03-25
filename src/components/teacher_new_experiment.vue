@@ -135,6 +135,7 @@ export default {
       noDataType:1,  //没有数据展示的样式
       dataMess:'当前暂无实验',
       hasData:false,
+      isDisable:true
     };
   },
   components: {noData
@@ -233,33 +234,35 @@ export default {
     },
     //实验库选择确认选择
     confirmChoose() {
-
       let that = this;
-
-      if (that.chooseList.length==0) {
-         return that.$toast('请选择实验',2000)
-      }
-      console.log(that.sid)
-      console.log(that.chooseList)
-      let obj = {};
-      let id = [];
-      for(let i = 0;i<that.chooseList.length;i++){
-        id.push(that.chooseList[i].id)
-      }
-      obj.experiment_id = id
-      obj.section_id = that.sindex;
-      console.log(obj)
-      bindExperiments(JSON.stringify(obj)).then(res=> {
-        if(res.code==200){
-          that.isnewFilter = false;
-          // that.reload();
-           //that.findAllByType(that.sindex,3,8,1)
-          that.$emit('findAllByType',that.sindex,3,8,1)
-        }else{
-          this.$toast(res.message,2000)
+      if(that.isDisable) {
+        that.isDisable = false;
+        if (that.chooseList.length == 0) {
+          return that.$toast('请选择实验', 2000)
         }
-      })
+        console.log(that.sid)
+        console.log(that.chooseList)
+        let obj = {};
+        let id = [];
+        for (let i = 0; i < that.chooseList.length; i++) {
+          id.push(that.chooseList[i].id)
+        }
+        obj.experiment_id = id
+        obj.section_id = that.sindex;
+        console.log(obj)
+        bindExperiments(JSON.stringify(obj)).then(res => {
+          setTimeout(function (){that.isDisable = true}, 3000 )
 
+          if (res.code == 200) {
+            that.isnewFilter = false;
+            // that.reload();
+            //that.findAllByType(that.sindex,3,8,1)
+            that.$emit('findAllByType', that.sindex, 3, 8, 1)
+          } else {
+            this.$toast(res.message, 2000)
+          }
+        })
+      }
     },
     //弹窗关闭
     closeDialog() {

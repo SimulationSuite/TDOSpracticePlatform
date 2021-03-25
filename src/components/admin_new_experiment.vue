@@ -363,7 +363,8 @@ export default {
       steps:[{text:''}],//实验步骤
       yourContent:'',
       editorOption:{},
-      searchTx:''
+      searchTx:'',
+      isDisable:true
     };
   },
   components: {
@@ -520,12 +521,12 @@ export default {
                       that.$refs.multipleTable.toggleRowSelection(that.Imagelibraries[i],true);
 
                   }
-            
+
           }
-          
+
         }
         })
-     
+
     },
     tab_step(){
         let that = this
@@ -554,7 +555,7 @@ export default {
         }
 
         this.curIndex = 3
-      
+
 
     },
         tab_finish(){
@@ -591,7 +592,7 @@ export default {
     handleSelectionChange(val) {
       let that = this
       that.multipleSelection = val;
-   
+
       console.log( that.form.images);
     },
     //上传前的钩子函数
@@ -761,28 +762,31 @@ export default {
     },
     //新增实验
     commitExprement(){
-        let that = this
-        let obj={}
+      let that = this
+      if(that.isDisable) {
+        that.isDisable = false;
+        let obj = {}
         obj.name = that.form.name
         obj.pic_url = that.form.cover
         obj.step = that.yourContent
         obj.duration = that.form.duration
         obj.category_id = that.form.cateId
         obj.introduce = that.form.introduction
-        obj.images =that.form.images
-        console.log(obj)
+        obj.images = that.form.images
 
-        insertExperiment(obj).then(res=>{
-           if(res.code==200){
-                that.isNew_experiment = false
-                that.$parent.findExperiment(1)
-                that.innerVisible = false
-            }else{
-              //console.log(res.message)
-              that.innerVisible = false
-              that.$toast(res.message,3000)
-            }
+        insertExperiment(obj).then(res => {
+          that.isDisable = true;
+          if (res.code == 200) {
+            that.isNew_experiment = false
+            that.$parent.findExperiment(1)
+            that.innerVisible = false
+          } else {
+            //console.log(res.message)
+            that.innerVisible = false
+            that.$toast(res.message, 3000)
+          }
         })
+      }
     },
       onEditorBlur(){}, // 失去焦点事件
       onEditorFocus(){}, // 获得焦点事件
