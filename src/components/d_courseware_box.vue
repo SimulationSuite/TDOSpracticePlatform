@@ -4,7 +4,7 @@
     <div class="exper_main">
       <courseNav @getData="getData"></courseNav>
       <div class="right_box">
-        <div class="add_btn_box clearfix" >
+        <div class="add_btn_box clearfix" v-if="!showvideo">
           <div class="sel-box">
             <el-select
               v-model="cate"
@@ -43,7 +43,7 @@
             >新增课件</a
           >
         </div>
-        <template v-if="isHasData">
+        <template v-if="isHasData && !showvideo">
           <div class="list_box">
             <ul class="list_ul clearfix">
               <li v-for="(item, index) in experimentList" :key="index">
@@ -98,6 +98,88 @@
           </div>
         </template>
 
+        <template v-if="showvideo">
+          <div class="courseDetail_box">
+              <div class="back_box">
+                <a class="back pointer" @click="click_Hidevideo">
+                  <img src="../assets/img/exper_back.png"/>
+                </a>
+              </div>
+                <div class="video_box" v-if="detailType == 0">
+                  <video-player
+                    @touchstart.passive="passive"
+                    class="video-player vjs-custom-skin"
+                    ref="videoPlayer"
+                    :playsinline="true"
+                    :x5-playsinline="true"
+                    :options="playerOptions"
+                    @play="onPlayerPlay($event)"
+                    @pause="onPlayerPause($event)"
+                    @ended="onPlayerEnded($event)"
+                    @waiting="onPlayerWaiting($event)"
+                    @playing="onPlayerPlaying($event)"
+                    @loadeddata="onPlayerLoadeddata($event)"
+                    @timeupdate="onPlayerTimeupdate($event)"
+                    @canplay="onPlayerCanplay($event)"
+                    @canplaythrough="onPlayerCanplaythrough($event)"
+                    @statechanged="playerStateChanged($event)"
+                    @ready="playerReadied"
+                  >
+                  </video-player>
+                  <!--<div class="name_box">
+                    <div class="name textline1">{{ momentMod.name }}</div>
+                    <a class="a_close pointer" ></a>
+                  </div>
+                  -->
+                  <a class="a-record" @click.stop="click_record" v-if="role == 3">
+                    <i></i>
+                    <span>记录笔记</span>
+                  </a>
+                </div>
+              <div class="video_box pdf_box" v-if="detailType == 1">
+                <!--<div class="pdf_name">
+                  {{ momentMod.name }}
+                  <a class="a_close pointer" @click="click_Hidevideo"></a>
+                </div>
+                -->
+                <div class="pdf-main">
+                  <div class="p-main">
+                    <pdf
+                      ref="pdf"
+                      :src="url"
+                      v-if="url"
+                      @loaded="loadPdfHandler"
+                      :page="currentPage"
+                      @num-pages="pageCount = $event"
+                      @page-loaded="currentPage = $event"
+                    >
+                    </pdf>
+                    <div class="pdf_info">
+                      <div class="btn_box">
+                        <a
+                          @click="changePdfPage(0)"
+                          class="pointer preve"
+                          :class="{ grey: currentPage == 1 }"
+                        ></a>
+                        <a
+                          @click="changePdfPage(1)"
+                          class="pointer next"
+                          :class="{ grey: currentPage == pageCount }"
+                        ></a>
+                      </div>
+                      <a
+                        class="pointer pdf_btnrecord"
+                        @click="isRecordNotes = true,titleText ='',contentText ='' "
+                        v-if="role == 3"
+                      ></a>
+                      <p>{{ currentPage }} / {{ pageCount }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </template>
+
         <nodata dataMess="当前暂无课件" v-if="!isHasData"></nodata>
       </div>
     </div>
@@ -117,7 +199,7 @@
     <newdialog ref="newdialog" @getCoursewareBySectionId='subcomponent_getCoursewareBySectionId(arguments)'></newdialog>
 
     <!--视频弹出-->
-    <div class="studetTrans" v-if="showvideo">
+    <div class="studetTrans" v-if="showvideo && 1==0">
       <div class="studentMain">
         <div class="dis-table-cell">
           <div class="video_box" v-if="detailType == 0">
@@ -141,20 +223,24 @@
               @ready="playerReadied"
             >
             </video-player>
+            <!--
             <div class="name_box">
               <div class="name textline1">{{ momentMod.name }}</div>
               <a class="a_close pointer" @click="click_Hidevideo"></a>
             </div>
+            -->
             <a class="a-record" @click.stop="click_record" v-if="role == 3">
               <i></i>
               <span>记录笔记</span>
             </a>
           </div>
           <div class="video_box pdf_box" v-if="detailType == 1">
+            <!--
             <div class="pdf_name">
               {{ momentMod.name }}
               <a class="a_close pointer" @click="click_Hidevideo"></a>
             </div>
+            -->
             <div class="pdf-main">
               <div class="p-main">
                 <pdf
@@ -404,8 +490,8 @@ export default {
       var mo = function (e) {
         e.preventDefault();
       };
-      document.body.style.overflow = "hidden";
-      document.addEventListener("touchmove", mo, false); //禁止页面滑动
+     // document.body.style.overflow = "hidden";
+      //document.addEventListener("touchmove", mo, false); //禁止页面滑动
       if (num == 0) {
         that.jumpTime = 0;
         that.$nextTick(function () {
@@ -857,7 +943,7 @@ export default {
     position: relative;
   }
   .right_box {
-    margin-left: 330px;
+    margin-left: 340px;
   }
 }
 

@@ -1,4 +1,4 @@
-.studetTrans{
+.studetTrans,.courseDetail_box{
     position: fixed;width:100%;top:0px;bottom:0px; left:0px; background: rgba(0,0,0,.5); z-index: 999; overflow-y:scroll; z-index: 999;
     overflow-x:hidden;
    
@@ -16,13 +16,18 @@
            span{ font-size:18px; display: block; text-align: center; color: #fff; white-space: nowrap; padding-top: 5px;}
        }
  }
+ .courseDetail_box{
+     position: static; background: 0 none; overflow: auto; 
+     .back_box{padding-bottom: 24px;}
+     .video_box{display:block; width: 100%;}
+ }
 
  .location{color: @basecolor;font-size: 18px; text-align: center;padding:15px 0}
 
  .pdf_box{
-     min-height: 800px;  width: auto; 
+     min-height:600px;  width: auto; 
      .pdf_name{height:50px; line-height: 50px; padding-right:50px; padding-left: 20px;font-size: 18px; color: #fff;background:@basecolor; position: relative;}
-     .pdf-main{padding:20px; background: #fff;}
+     .pdf-main{ background: #fff;}
      .p-main{background: #ececec; position: relative;}
 
      .pdf_info{position: absolute; width: 100%;left:0px;bottom: 0px; text-align: center; font-size: 18px;}

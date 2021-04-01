@@ -24,7 +24,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="logo"></div>
+                    <div class="logo"><img src="../assets/img/logo.png"/></div>
                 </div>
             </div>
 
@@ -162,7 +162,7 @@ export default {
     font-size:24px;color:#fff;
     .gradientlr(#6AB8FC,#0B69F7)
     }
-    .logo{width:50px;height: 50px;position: absolute; left:160px;top:50px;background: @basecolor;}
+    .logo{width:50px;height: 50px;position: absolute; left:160px;top:50px;}
 }
 @media screen and (max-width:1600px) {
     .lo-form{width:80%}
