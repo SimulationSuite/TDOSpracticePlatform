@@ -240,7 +240,7 @@
       class="personDialog"
 
     >
-    <div slot="title" class="dialog_header">学生信息修改</div>
+    <div slot="title" class="dialog_header">{{userInfo.roleID==2?'学生信息修改':userInfo.roleID==1?'老师信息修改':'信息修改'}}</div>
 
       <div class="editMain" >
         <el-form ref="form" label-width="80px">
@@ -479,14 +479,12 @@ export default {
       editInfo(obj){
         let that = this;
         that.editDialog = true;
-        console.log(obj)
         that.userInfo =  Object.assign({}, obj)
         that.userInfo.gender = obj.gender==0?'男': obj.gender==1?'女':'未知'
-
       },
       //点击重置
       reSetInfo(obj){
-         console.log(obj)
+         //console.log(obj)
          let that = this;
          that.resetDialog = true;
          that.id = obj.id;
