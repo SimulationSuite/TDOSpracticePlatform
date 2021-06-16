@@ -68,7 +68,7 @@ export default {
             obj.id = that.userName;
             obj.password = that.password;
             let role_id;
-            console.log(obj)
+            //console.log(obj)
             login(obj).then(res=> {
                 if(res.code==200){
                     //生成token

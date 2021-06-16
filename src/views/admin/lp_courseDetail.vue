@@ -1,5 +1,5 @@
 <template>
-    <div class="pp_main boxsizing detail_main">
+    <div class="pp_main boxsizing detail_main Scroll_detail_main" ref="detail_main" id="detail_main">
         <div class="container">
             <div class="pageTab clearfix">
                 <div class="mess">
@@ -7,7 +7,7 @@
                 </div>
             </div>
         </div>
-        <div class="container container_info">
+        <div class="container container_info" ref="container_info">
             <div class="info_box">
 
 
@@ -56,9 +56,9 @@
                 <experiment :role="role" v-if="navindex==1" :status="status" :typeData = "type"></experiment>
 
                 <!--课程课件-->
-                <courseware v-if="navindex==2" :status="status" :typeData = type></courseware>
+                <courseware v-if="navindex==2" :status="status" :typeData = "type" @getScroll="getScroll"></courseware>
 
-                <coursework v-if="navindex==3" :status="status" :noEdit = typeWork></coursework>
+                <coursework v-if="navindex==3" :status="status" :noEdit = "typeWork"></coursework>
 
 
             </div>
@@ -179,6 +179,22 @@ export default {
        that.getCourseById();
     },
     methods:{
+        getScroll(){
+
+     
+            let that = this;
+            this.$nextTick(() => {
+            
+              
+                var h =  document.getElementById("app").offsetHeight;
+                var h1 = this.$refs.container_info.offsetHeight;
+                let scroll_h = parseInt(h1)-parseInt(h)+135;
+               
+                document.documentElement.scrollTop  = scroll_h;
+    
+            })
+         
+        },
         getCourseById(){
             let that = this;
             let obj = {};

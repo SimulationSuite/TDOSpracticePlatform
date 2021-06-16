@@ -509,6 +509,7 @@ export default {
           that.loadPdfHandler();
         });
       }
+      that.$emit('getScroll')
     },
 
     getCoursewareByCourseId(perPage, page, kind, type) {
@@ -605,6 +606,7 @@ export default {
       that.cate = ''
       that.kind = ''
       that.type = ''
+      that.showvideo = false;
       if (data.sindex == "") {
         that.isEdit = 1
         that.getCoursewareByChapterId(data.cindex, that.kind, that.type, that.perPage, 1);
@@ -936,7 +938,7 @@ export default {
 
 .experiment_box {
   margin-top: 30px;
-  min-height: 600px;
+  //min-height: 600px;
   .exper_main {
     width: 100%;
     height: 100%;
