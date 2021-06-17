@@ -1,5 +1,5 @@
 <template>
-    <div class="pp_main boxsizing detail_main">
+    <div class="pp_main boxsizing detail_main Scroll_detail_main" ref="detail_main" id="detail_main">
         <div class="container">
             <div class="pageTab clearfix">
                 <div class="mess">
@@ -7,7 +7,7 @@
                 </div>
             </div>
         </div>
-        <div class="container container_info">
+        <div class="container container_info" ref="container_info">
             <div class="info_box">
 
 
@@ -53,7 +53,7 @@
                 <experiment v-if="navindex==1" :role="role"></experiment>
 
                 <!--课程课件-->
-                <courseware v-if="navindex==2" :role="role"></courseware>
+                <courseware v-if="navindex==2" :role="role" @getScroll="getScroll"></courseware>
 
 
 
@@ -105,7 +105,9 @@ export default {
 
             courseId:'',
             course:'11',
-            role:3,//传给子组件角色表示课程详情点击的是3
+            role:3,//传给子组件角色表示课程详情点击的是3,
+
+            scrollTimer:null
         }
     },
     components:{chapter,experiment,courseware},
@@ -124,12 +126,29 @@ export default {
      beforeDestroy(){
         let that = this;
         that.$store.commit("updateStudentNavindex",0);
+        if(that.scrollTimer!=null){
+          clearTimeout(that.scrollTimer)
+        }
     },
     mounted(){
         let that = this;
        that.getCourseById();
     },
     methods:{
+        getScroll(){
+            let that = this;
+            this.$nextTick(() => {
+                var h = 0;
+                var h1 = 0          
+              that.scrollTimer = setTimeout(() => {
+                   h =  document.getElementById("app").offsetHeight;
+                   h1 = that.$refs.container_info.offsetHeight;
+                   let scroll_h = (parseInt(h1)-parseInt(h))+135;            
+                document.documentElement.scrollTop  = scroll_h;
+              },100)
+            })
+         
+        },
         getCourseById(){
             let that = this;
             let obj = {};
