@@ -3,6 +3,13 @@
         <div class="back_box">
            <a class="back pointer" @click="backClass"></a>
            <div class="fr">
+            <div class="n-d-serach">
+                <input placeholder="请输入学生学号" type="text" v-emoji autocomplete="off"  />
+                
+             </div>
+              <div class="n-d-serach">
+                <input placeholder="请输入学生姓名" type="text" v-emoji autocomplete="off"  />
+              </div>
               <el-select v-model="class_value" placeholder="请选择班级"  @change="studentSelectClass">
                 <el-option
                   v-for="item in classList"
@@ -11,6 +18,8 @@
                   :value="item.id">
                 </el-option>
               </el-select>
+
+              <a class="n-btn-serach">搜索</a>
       
            </div>
         </div>
@@ -288,4 +297,23 @@ export default{
 }
 
 .btnbox{text-align:center;}
+.n-d-serach{ margin-right: 10px; display: inline-block; vertical-align:top;}
+.n-d-serach input:focus{
+  border: 1px solid #006bff;
+}
+.n-d-serach input{line-height: 38px; width: 100%;
+  background: 0 none;
+  height: 38px;
+  line-height: 38px;
+  font-size: 14px;
+    width:110px;
+  height: 38px;
+  border: 1px solid #9B9B9B;
+  padding: 0 20px;
+    border-radius: 5px 5px 5px 5px;
+  
+  }
+.n-btn-serach{width:70px;height: 40px; font-size: 16px; width: 70px; height: 40px; display: inline-block; vertical-align: top; line-height: 40px;
+margin-left: 8px; cursor:pointer;
+text-align:center; color: #fff;background: #006bff; border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px; overflow: hidden;}
 </style>
