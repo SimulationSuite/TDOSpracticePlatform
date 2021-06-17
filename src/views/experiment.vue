@@ -760,6 +760,7 @@ export default {
                     var url = canvas.toDataURL('image/png')
                     that.dataURL = url
                     that.yourContent =that.yourContent+ '<p><img src="'+that.dataURL+'"/></p>'
+                    that.$toast('截图成功，请在实验报告中查询',3000)
                 })
             })
         },
