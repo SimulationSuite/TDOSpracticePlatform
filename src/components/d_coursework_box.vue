@@ -542,12 +542,12 @@ export default {
           // alert(that.totalAllCourse);
           for (let i = 0; i < res.data.list.length; i++) {
             res.data.list[i].checked = false;
-            for (let j = 0; j < that.courseList.length; j++) {
-              if (res.data.list[i].id == that.courseList[j].id) {
-                res.data.list[i].checked = true;
-                //console.log(123);
-              }
-            }
+            // for (let j = 0; j < that.courseList.length; j++) {
+            //   if (res.data.list[i].id == that.courseList[j].id) {
+            //     res.data.list[i].checked = true;
+            //     //console.log(123);
+            //   }
+            // }
           }
           console.log(res.data.list);
           console.log(that.courseList);
@@ -768,6 +768,7 @@ export default {
           that.courseList.push(that.courseList_backUp[i]);
         }
 
+        that.chooseList = that.unique(that.chooseList);
         for (let i = 0; i < that.chooseList.length; i++) {
           that.courseList.push(that.chooseList[i]);
         }
