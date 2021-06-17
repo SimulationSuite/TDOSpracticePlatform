@@ -19,7 +19,7 @@ import './assets/less/common.less'
 import toastRegistry from './components/toast/index'
 //ElementUI.Dialog.props.lockScroll.default = false;
 import Base64 from './util/base64.js'
-
+import './util/dialog'
 
 import htmlToPdf from '@/util/htmlToPdf'
 // 使用Vue.use()方法就会调用工具方法中的install方法
@@ -79,6 +79,9 @@ Vue.filter('dateFormatYMDhms', function (utc_datetime) {
 
 import Directives from './util/directives'
 Vue.use(Directives)
+
+
+
 
 new Vue({
   router,

@@ -281,42 +281,47 @@
     </div>
 
     <!--记录笔记-->
-    <el-dialog
+    <el-dialog v-dialogDrag
+    :close-on-click-modal="false"
       :visible.sync="isRecordNotes"
       width="500px"
       class="dialog_record"
       @close="click_hideRecord"
     >
-      <div slot="title" class="dialog_header">保存笔记</div>
-      <div class="record_main">
-        <p class="location" v-if="detailType == 1">
-          已保存当前页数：{{ currentPage }}
-        </p>
-        <p class="location" v-if="detailType == 0">
-          已保存当前视频时间：{{ location }}
-        </p>
 
-        <el-form>
-          <el-form-item>
-            <el-input
-              v-model="titleText"
-              type="text"
-              placeholder="请输入笔记标题"
-            />
-          </el-form-item>
-          <el-form-item>
-            <el-input
-              v-model="contentText"
-              type="textarea"
-              :rows="5"
-              placeholder="请输入该段笔记的简介..."
-            />
-          </el-form-item>
-        </el-form>
-      </div>
-      <div slot="footer" class="dialog-footer">
-        <a class="btnDefault" @click="submitNote">确 认</a>
-      </div>
+        <div slot="title" class="dialog_header">保存笔记</div>
+        <div class="record_main">
+          <p class="location" v-if="detailType == 1">
+            已保存当前页数：{{ currentPage }}
+          </p>
+          <p class="location" v-if="detailType == 0">
+            已保存当前视频时间：{{ location }}
+          </p>
+
+          <el-form>
+            <el-form-item>
+              <el-input
+                v-model="titleText"
+                type="text"
+                placeholder="请输入笔记标题"
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-input
+                v-model="contentText"
+                type="textarea"
+                :rows="5"
+                placeholder="请输入该段笔记的简介..."
+              />
+            </el-form-item>
+          </el-form>
+        </div>
+        <div slot="footer" class="dialog-footer">
+          <a class="btnDefault" @click="submitNote">确 认</a>
+        </div>
+       
+
+
     </el-dialog>
 
   </div>
@@ -341,6 +346,41 @@ import {
 } from "@/API/api";
 import nodata from "@/components/noData";
 export default {
+
+  directives: {
+      drag(el){
+                let oDiv = el; //当前元素
+                let self = this; //上下文
+                //禁止选择网页上的文字
+                document.onselectstart = function() {
+                    return false;
+                };
+                oDiv.onmousedown = function(e){
+                    //鼠标按下，计算当前元素距离可视区的距离
+                    console.log(e.clientX)
+                    let disX = e.clientX - oDiv.offsetLeft;
+                    let disY = e.clientY - oDiv.offsetTop;
+
+                    console.log( oDiv.getBoundingClientRect())
+
+                    document.onmousemove = function(e){
+                        //通过事件委托，计算移动的距离
+                        let l = e.clientX - disX;
+                        let t = e.clientY - disY;
+                        //移动当前元素
+                        oDiv.style.left = l + "px";
+                        oDiv.style.top = t + "px";
+                    }
+                    document.onmouseup = function(e){
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    };
+                    //return false不加的话可能导致黏连，就是拖到一个地方时div粘在鼠标上不下来，相当于onmouseup失效
+                    return false;
+                };
+            }
+  },
+
   data() {
     return {
       titleText: "",

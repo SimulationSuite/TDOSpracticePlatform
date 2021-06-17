@@ -617,6 +617,7 @@ export default {
             const url =uri
             this.$nextTick(function(){
            
+            //console.log(uri)
             that.rfb = new RFB(document.getElementById('screen'), url, {
             // 向vnc 传递的一些参数，比如说虚拟机的开机密码等
                 credentials: {password: '123456' }
