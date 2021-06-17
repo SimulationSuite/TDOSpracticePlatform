@@ -1072,6 +1072,7 @@ export default {
     }
   }
 }
+textarea{resize: none; }
 
 @media screen and (max-width: 1440px) {
   .experiment_box {

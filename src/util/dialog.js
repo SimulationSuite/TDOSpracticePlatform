@@ -37,8 +37,24 @@ Vue.directive('dialogDrag', {
         var l = e.clientX - disX
         var t = e.clientY - disY
         
-        const max_left= (parseInt(parent_div.clientWidth)-500)/2-3
      
+        const max_left= (parseInt(parent_div.clientWidth)-500)/2-3
+
+        const max_top = (parseInt(parent_div.clientHeight)-380)/2-3
+        
+        if(l<-max_left){
+            l=-max_left
+        }
+        if(l>max_left){
+            l=max_left
+        }
+
+        if(t<-max_top){
+            t=-max_top
+        }
+        if(t>max_top){
+            t=max_top
+        }
         
        
      
