@@ -351,7 +351,7 @@
       </div>
 
       <div class="choseFooter clearfix">
-        <a class="btnDefault fl pointer" @click="showQuestion(2)" v-if="1 == 1"
+        <a class="btnDefault fl pointer" @click="showQuestion(2)" v-if="chooseList.length > 0"
           >确认</a
         >
 
@@ -539,6 +539,7 @@ export default {
           // alert("111")
           that.searchText = "";
           that.totalAllCourse = res.data.total;
+          that.chooseList = [];
           // alert(that.totalAllCourse);
           for (let i = 0; i < res.data.list.length; i++) {
             res.data.list[i].checked = false;
@@ -690,9 +691,9 @@ export default {
           if (!(that.deleteList.indexOf(obj.id) != -1)) {
             that.deleteList.push(obj.id);
           }
-          that.$set(that.courseList[index], "checked", true);
+          that.$set(that.courseList_Org[index], "checked", true);
         } else {
-          that.$set(that.courseList[index], "checked", false);
+          that.$set(that.courseList_Org[index], "checked", false);
           let i = that.deleteList.indexOf(obj.id);
           that.deleteList.splice(i, 1);
         }
@@ -751,7 +752,8 @@ export default {
     showQuestion(flag) {
       let that = this;
 
-      if (flag != 1) {
+      if (flag != 1 && that.chooseList.length != 0) {
+        // alert(that.courseList.length)
         that.courseList_Org = that.courseList;
         that.showQuestionBank = false;
         //保存
@@ -773,7 +775,6 @@ export default {
           that.courseList.push(that.chooseList[i]);
         }
       }
-
     },
 
     unique(arr) {
@@ -781,7 +782,7 @@ export default {
         for (var j = i + 1, len = arr.length; j < len; j++) {
           if (arr[i].id === arr[j].id) {
             arr.splice(j, 1);
-            j--; 
+            j--;
             len--;
           }
         }
@@ -819,8 +820,10 @@ export default {
         if (res.code == 200) {
           // alert("新增成功");
 
-
-          return;
+          that.chooseList = [];
+          // that.getData(that.nowData);
+          that.courseList = that.courseList_Org;
+          that.courseList_backUp = that.courseList_Org;
 
           // if (flag == 2) {
           //   return;
@@ -1096,7 +1099,7 @@ export default {
       that.courseList_Org = [];
       that.courseList_backUp = [];
       that.all_courseList = [];
-      
+
       that.chooseList = [];
 
       that.sindex = data.sindex;
