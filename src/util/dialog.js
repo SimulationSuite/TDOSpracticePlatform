@@ -34,38 +34,12 @@ Vue.directive('dialogDrag', {
        
       max_left= (parseInt(parent_div.clientWidth)-500)/2-3
       max_top = (parseInt(parent_div.clientHeight)-380)/2-3
-       
-                console.log(max_left)
-                console.log(max_top)
 
       document.onmousemove = function(e) {
         // 通过事件委托，计算移动的距离
         var l = e.clientX - disX
         var t = e.clientY - disY
         
-        var move_left = 
-     
-     
-
-    /*
-
-        if(l<-max_left){
-            l=-max_left
-        }
-        if(l>max_left){
-            l=max_left
-        }
-
-        if(t<-max_top){
-            t=-max_top
-        }
-        if(t>max_top){
-            t=max_top
-        }
-        */
-       
-        console.log('${l + styL}')
-        console.log()
      
 
         // 移动当前元素
