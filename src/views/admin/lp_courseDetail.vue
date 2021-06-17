@@ -184,12 +184,9 @@ export default {
      
             let that = this;
             this.$nextTick(() => {
-            
-              
                 var h =  document.getElementById("app").offsetHeight;
                 var h1 = this.$refs.container_info.offsetHeight;
-                let scroll_h = parseInt(h1)-parseInt(h)+135;
-               
+                let scroll_h = parseInt(h1)-parseInt(h)+150;               
                 document.documentElement.scrollTop  = scroll_h;
     
             })
