@@ -549,6 +549,7 @@ export default {
           }
           console.log(res.data.list);
           console.log(that.courseList);
+          // alert(JSON.stringify(res.data.list))
           that.all_courseList = res.data.list;
         } else {
           this.$toast(res.message, 2000);
@@ -970,7 +971,8 @@ export default {
         obj.end_at = new Date(that.homework.endTime).toUTCString();
       } else {
         var date = new Date();
-        obj.end_at = date.toLocaleDateString().toUTCString();
+        obj.end_at = new Date(date.toLocaleDateString()).toUTCString();
+        // obj.end_at = date.toLocaleDateString().toUTCString();
       }
       console.log(JSON.stringify(obj));
       modifyAssignmentNameById(JSON.stringify(obj)).then((res) => {
