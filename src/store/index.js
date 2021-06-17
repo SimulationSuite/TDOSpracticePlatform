@@ -33,7 +33,7 @@ export default new Vuex.Store({
       { text: "人员管理", path: "/admin/personnelManage" },
     ],
     tea_menus: [
-      { text: "开课管理", path: "/teacher" },
+      { text: "课程管理", path: "/teacher" },
       { text: "备课管理", path: "/teacher/lessonPreparationManagement" },
       { text: "作业管理", path: "/teacher/jobManagement"},
       { text: "实验报告管理", path: "/teacher/experimentalReport"},
