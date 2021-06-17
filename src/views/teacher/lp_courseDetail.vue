@@ -1,5 +1,5 @@
 <template>
-    <div class="pp_main boxsizing detail_main">
+   <div class="pp_main boxsizing detail_main Scroll_detail_main" ref="detail_main" id="detail_main">
         <div class="container">
             <div class="pageTab">
                 <div class="mess">
@@ -7,7 +7,7 @@
                 </div>
             </div>
         </div>
-        <div class="container container_info">
+        <div class="container container_info" ref="container_info">
             <div class="info_box">
 
 
@@ -116,7 +116,7 @@
                 <experiment v-if="navindex==3" :typeData = type :status = status :course_info = myData></experiment>
 
                 <!--课程课件-->
-                <courseware v-if="navindex==4" :typeData = type :status = status  ></courseware>
+                <courseware v-if="navindex==4" :typeData = type :status = status  @getScroll="getScroll"></courseware>
                 <coursework v-if="navindex==5" timeStatus='1' :noEdit = canCaozuo() :course_info = myData></coursework>
 
                 <!--老师课程开课确认框-->
@@ -247,7 +247,9 @@ export default {
     beforeDestroy(){
         let that = this;
         that.$store.commit("updateTeacherNavindex",0);
-
+        if(that.scrollTimer!=null){
+          clearTimeout(that.scrollTimer)
+        }
     },
     mounted(){
         let that = this;
@@ -266,6 +268,20 @@ export default {
 
     },
     methods:{
+        getScroll(){
+            let that = this;
+            this.$nextTick(() => {
+                var h = 0;
+                var h1 = 0          
+              that.scrollTimer = setTimeout(() => {
+                   h =  document.getElementById("app").offsetHeight;
+                   h1 = that.$refs.container_info.offsetHeight;
+                   let scroll_h = (parseInt(h1)-parseInt(h))+135;            
+                document.documentElement.scrollTop  = scroll_h;
+              },100)
+            })
+         
+        },
         getCourseById(){
 
             let course_id = this.$route.query.courseId

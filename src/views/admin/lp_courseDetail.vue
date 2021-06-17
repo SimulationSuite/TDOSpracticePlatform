@@ -152,6 +152,7 @@ export default {
             show_courseOutline:{},//当前展示的课程章节，新建小节还是展示小节列表
             show_courseSection:{},//当前展开的是哪个小节
             small_section_number:0,//小节数量
+            scrollTimer:null,
         }
     },
     components:{chapter,experiment,courseware,coursework},
@@ -168,7 +169,10 @@ export default {
    beforeDestroy(){
         let that = this;
         that.$store.commit("updateAdminNavindex",0);
-
+        
+        if(that.scrollTimer!=null){
+          clearTimeout(that.scrollTimer)
+        }
 
 
     },
@@ -180,15 +184,16 @@ export default {
     },
     methods:{
         getScroll(){
-
-     
             let that = this;
             this.$nextTick(() => {
-                var h =  document.getElementById("app").offsetHeight;
-                var h1 = this.$refs.container_info.offsetHeight;
-                let scroll_h = parseInt(h1)-parseInt(h)+150;               
+                var h = 0;
+                var h1 = 0          
+              that.scrollTimer = setTimeout(() => {
+                   h =  document.getElementById("app").offsetHeight;
+                   h1 = that.$refs.container_info.offsetHeight;
+                   let scroll_h = (parseInt(h1)-parseInt(h))+135;            
                 document.documentElement.scrollTop  = scroll_h;
-    
+              },100)
             })
          
         },

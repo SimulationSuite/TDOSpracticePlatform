@@ -58,7 +58,7 @@
               <ul class="choice_question">
                 <li
                   :class="{ li_choose: isShow }"
-                  v-for="(item, index) in courseList"
+                  v-for="(item, index) in courseList_Org"
                   :key="index"
                 >
                   <div class="title">
@@ -100,14 +100,14 @@
           </div>
           <div class="add_btn_box" v-if="canEdit == 1 && noEdit != 0">
             <a
-              v-if="courseList.length > 0"
+              v-if="courseList_Org.length < 0"
               class="btnDefault pointer"
               @click="addQuestionBack"
               >保存</a
             >
             <a
               class="btnDefault pointer"
-              v-if="courseList.length > 0"
+              v-if="courseList_Org.length > 0"
               @click="(isConfirmWork = true), addQuestionBack(2)"
               >发布</a
             >
@@ -351,7 +351,7 @@
       </div>
 
       <div class="choseFooter clearfix">
-        <a class="btnDefault fl pointer" @click="showQuestion" v-if="1 == -1"
+        <a class="btnDefault fl pointer" @click="showQuestion(2)" v-if="chooseList.length > 0"
           >确认</a
         >
 
@@ -418,6 +418,7 @@ export default {
       //作业列表参数根据具体实际情况来定
       courseWork: {},
       courseList_Org: [],
+      courseList_backUp: [],
       courseList: [],
       //全部题目
       all_courseList: [],
@@ -524,6 +525,7 @@ export default {
       c_category_id
     ) {
       let that = this;
+      that.all_courseList = [];
       let obj = {};
       obj.type = type;
       obj.content = content;
@@ -537,15 +539,16 @@ export default {
           // alert("111")
           that.searchText = "";
           that.totalAllCourse = res.data.total;
+          that.chooseList = [];
           // alert(that.totalAllCourse);
           for (let i = 0; i < res.data.list.length; i++) {
             res.data.list[i].checked = false;
-            for (let j = 0; j < that.courseList.length; j++) {
-              if (res.data.list[i].id == that.courseList[j].id) {
-                res.data.list[i].checked = true;
-                //console.log(123);
-              }
-            }
+            // for (let j = 0; j < that.courseList.length; j++) {
+            //   if (res.data.list[i].id == that.courseList[j].id) {
+            //     res.data.list[i].checked = true;
+            //     //console.log(123);
+            //   }
+            // }
           }
           console.log(res.data.list);
           console.log(that.courseList);
@@ -586,7 +589,7 @@ export default {
         if (dates1 < dates3) {
           return that.$toast("作业截止时间不能小于课程开始时间", 3000);
         }
-        obj.end_at =  new Date(that.homework.endTime).toUTCString();
+        obj.end_at = new Date(that.homework.endTime).toUTCString();
       } else {
         var date = new Date();
         obj.end_at = new Date(date.toLocaleDateString()).toUTCString();
@@ -688,9 +691,9 @@ export default {
           if (!(that.deleteList.indexOf(obj.id) != -1)) {
             that.deleteList.push(obj.id);
           }
-          that.$set(that.courseList[index], "checked", true);
+          that.$set(that.courseList_Org[index], "checked", true);
         } else {
-          that.$set(that.courseList[index], "checked", false);
+          that.$set(that.courseList_Org[index], "checked", false);
           let i = that.deleteList.indexOf(obj.id);
           that.deleteList.splice(i, 1);
         }
@@ -748,24 +751,43 @@ export default {
     //新增题目，题目选择确认
     showQuestion(flag) {
       let that = this;
-      if (flag != 1) {
+
+      if (flag != 1 && that.chooseList.length != 0) {
+        // alert(that.courseList.length)
+        that.courseList_Org = that.courseList;
         that.showQuestionBank = false;
+        //保存
+        that.addQuestionBack(2);
+        return;
       }
-      console.log(that.courseList);
 
       if (that.courseList.length == 0) {
         that.courseList = that.chooseList;
       } else {
         that.courseList = [];
 
-        for (let i = 0; i < that.courseList_Org.length; i++) {
-          that.courseList.push(that.courseList_Org[i]);
+        for (let i = 0; i < that.courseList_backUp.length; i++) {
+          that.courseList.push(that.courseList_backUp[i]);
         }
-        // alert(JSON.stringify(that.chooseList));
+
+        that.chooseList = that.unique(that.chooseList);
         for (let i = 0; i < that.chooseList.length; i++) {
           that.courseList.push(that.chooseList[i]);
         }
       }
+    },
+
+    unique(arr) {
+      for (var i = 0, len = arr.length; i < len; i++) {
+        for (var j = i + 1, len = arr.length; j < len; j++) {
+          if (arr[i].id === arr[j].id) {
+            arr.splice(j, 1);
+            j--;
+            len--;
+          }
+        }
+      }
+      return arr;
     },
 
     addQuestionBack(flag) {
@@ -776,19 +798,19 @@ export default {
       let list = [];
       // alert(that.assignmentId);
       let totalscore = 0;
-      console.log(that.courseList.length);
+      console.log(that.courseList_Org.length);
 
-      for (let i = 0; i < that.courseList.length; i++) {
-        totalscore += parseInt(that.courseList[i].score);
+      for (let i = 0; i < that.courseList_Org.length; i++) {
+        totalscore += parseInt(that.courseList_Org[i].score);
       }
       if (totalscore > 100) {
         this.$toast("总分值大于100,请修改", 3000);
         return;
       }
-      for (let i = 0; i < that.courseList.length; i++) {
+      for (let i = 0; i < that.courseList_Org.length; i++) {
         let objques = {};
         objques.assignment_id = that.assignmentId;
-        objques.question_id = that.courseList[i].id;
+        objques.question_id = that.courseList_Org[i].id;
         objques.score = 0; //that.courseList[i].score
         list.push(objques);
       }
@@ -798,17 +820,23 @@ export default {
         if (res.code == 200) {
           // alert("新增成功");
 
-          if (flag == 2) {
-            return;
-          }
+          that.chooseList = [];
+          // that.getData(that.nowData);
+          that.courseList = that.courseList_Org;
+          that.courseList_backUp = that.courseList_Org;
 
-          if (flag == 1) {
-            this.$toast("删除成功", 2000);
-          } else {
-            this.$toast("保存成功", 2000);
-          }
-          //这边要刷新下作业
-          that.getData(that.nowData);
+          // if (flag == 2) {
+          //   return;
+          // }
+
+          // if (flag == 1) {
+          //   this.$toast("删除成功", 2000);
+          // } else {
+          //   this.$toast("保存成功", 2000);
+          // }
+
+          // //这边要刷新下作业
+          // that.getData(that.nowData);
         } else {
           // alert("新增失败");
           this.$toast(res.message, 2000);
@@ -901,7 +929,7 @@ export default {
         that.isDelete = true;
       } else {
         that.isShow = !that.isShow;
-        that.addState(that.courseList);
+        that.addState(that.courseList_Org);
         that.deleteList = [];
       }
     },
@@ -1018,8 +1046,8 @@ export default {
       //       alert(JSON.stringify(that.deleteList));
       // console.log(JSON.stringify(that.courseList))
       let tmpArr = [];
-      for (let i = 0; i < that.courseList.length; i++) {
-        let q1 = that.courseList[i];
+      for (let i = 0; i < that.courseList_Org.length; i++) {
+        let q1 = that.courseList_Org[i];
         let isExist = 0;
         for (let j = 0; j < that.deleteList.length; j++) {
           let q2 = that.deleteList[j];
@@ -1038,7 +1066,7 @@ export default {
         return;
       }
 
-      that.courseList = tmpArr;
+      that.courseList_Org = tmpArr;
       //保存
       that.addQuestionBack(1);
     },
@@ -1069,7 +1097,9 @@ export default {
       that.nowData = data;
       that.courseList = [];
       that.courseList_Org = [];
+      that.courseList_backUp = [];
       that.all_courseList = [];
+
       that.chooseList = [];
 
       that.sindex = data.sindex;
@@ -1111,6 +1141,7 @@ export default {
                   if (res.data.list.length > 0) {
                     that.courseList = res.data.list;
                     that.courseList_Org = res.data.list;
+                    that.courseList_backUp = res.data.list;
                   }
                   that.noData = false;
                   // alert(that.status)
@@ -1139,6 +1170,7 @@ export default {
           // alert(111)
           that.courseList = res.data.list;
           that.courseList_Org = res.data.list;
+          that.courseList_backUp = res.data.list;
           console.log(res.data.list);
           // alert("查询题目成功");
         } else {
