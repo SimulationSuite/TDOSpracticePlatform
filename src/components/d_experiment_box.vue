@@ -438,10 +438,14 @@ export default {
         link_Detail(id){
           let that = this;
           that.isNewExperiment = true;
+        if (sessionStorage.getItem('p_p-authority')==0) {
+            that.$refs.experimentDetail.click_Detail(id,that.$route.query.courseId);
+        }else {
           if(that.cindex!=''&&that.sindex!=''){
-              console.log()
-          that.$refs.experimentDetail.click_Detail(id,that.$route.query.courseId);
-}
+            that.$refs.experimentDetail.click_Detail(id,that.$route.query.courseId);
+          } 
+        }
+                    
         },
         getData(data){
             let that = this;
