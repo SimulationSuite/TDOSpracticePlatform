@@ -1,7 +1,7 @@
 <template>
   <div>
   <div class="PP_header">
-    <div class="header-container">
+    <div class="header-container" :class="{'header-container-admin':role_num==2}">
       <div class="container">
         <div class="fl fl-logo">
           <div class="logo"></div>
@@ -98,7 +98,8 @@ export default {
       password:'',
       confirmPassword:'',
       logoutDialog:false,
-      userinfo:''
+      userinfo:'',
+      role_num:0,//当前登录的角色  0学生端  1 教师端  2管理员端
 
     }
   },
@@ -133,7 +134,7 @@ export default {
 
       if(num==2){
          that.menus = that.$store.state.ad_menus;
-
+         
       }
       if(num==1){
         that.menus = that.$store.state.tea_menus;
@@ -143,6 +144,8 @@ export default {
       if(num==0){
          that.menus = that.$store.state.stu_menus;
       }
+
+      that.role_num = num
 
 
   },
@@ -331,6 +334,18 @@ export default {
         .children-ul{display: block;}
      }
   }
+
+  /*管理员新增分类管理 间距调小 */
+  .header-container-admin{
+    margin:0 30px;
+     .nav_ul{
+          > li {
+        padding: 0 20px;
+      }
+     }
+  }
+
+
   @media screen and (min-width: 1500px) {
     
     .nav_ul {
@@ -338,6 +353,31 @@ export default {
         padding: 0 40px;
       }
     }
+
+    /*管理员新增分类管理 间距调小 */
+    .header-container-admin{
+      .nav_ul{
+          > li {
+            padding: 0 20px;
+          }
+      }
+    }
+  }
+
+  
+  @media screen and (min-width: 1680px) {
+    
+  /*管理员新增分类管理 间距调小 */
+  .header-container-admin{
+     .nav_ul{
+        > li {
+          padding: 0 20px;
+        }
+     }
+  }
+
+
+
   }
   @media screen and (max-width: 1380px) {
     .header-container{margin: 0 30px;}
@@ -348,7 +388,18 @@ export default {
       }
     }
 
+  /*管理员新增分类管理 间距调小 */
+  .header-container-admin{
+    min-width:1200px;
+     .nav_ul{
+        > li {
+          padding: 0 12px;
+        }
+     }
   }
+
+  }
+
    @media screen and (max-width: 1280px) {
    
     .nav_ul {

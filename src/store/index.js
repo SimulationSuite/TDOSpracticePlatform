@@ -6,9 +6,9 @@ export default new Vuex.Store({
   state: {
     navindex:0,
 
-    teacherNavindex:0, //老师端 学生tab切换
-    adminNavindex:0, //老师端学生tab切换
-    studentNavindex:0, //老师端学生tab切换
+    teacherNavindex:0, //老师端tab切换
+    adminNavindex:0, //管理员端tab切换
+    studentNavindex:0, //学生端tab切换
 
     uploadUrl:'http://ibwedu.f3322.net:8111/upload_excel',
     pic_Url:'http://ibwedu.f3322.net:8888',

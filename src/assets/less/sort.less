@@ -6,32 +6,41 @@
 .commonview-box {
   position: relative;
   width: 404px;
-  height: 891px;
+  min-height: 891px;
   background-color: #fff;
   float: left;
   margin-right: 48px;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-webkit-box-sizing: border-box;
 }
 .content-box {
   float: left;
   width: 874px;
-  height: 891px;
+  min-height: 891px;
   background-color: #fff;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-webkit-box-sizing: border-box;
 }
 .content-box-new .title{
 
 
 }
 .commonview-box ul li {
-  width: 356px;
+
   height: 60px;
   border-radius: 5px;
   margin: 24px;
   // transition: all 0.3s;
-  background: url('../img/svg/2.svg') no-repeat 325px center;
+  background: url('../img/svg/2.svg') no-repeat right 20px center;
+  
 }
 .commonview-box .active{
   color: #006bff;
-  background: url('../img/svg/1.svg') no-repeat 325px center;
+  background: url('../img/svg/1.svg') no-repeat right 20px center;
 }
 .commonview-box ul li a {
   position: relative;
@@ -66,7 +75,8 @@
 .sort-btn {
   position: absolute;
   bottom: 24px;
-  width: 356px;
+  width: 80%;
+  left:10%;
   height: 60px;
   font-size: 24px;
   font-family: Source Han Sans CN;
@@ -78,7 +88,7 @@
   height: 60px;
 
   border-radius: 5px;
-  margin: 24px auto 0;
+  margin:24px  auto 0;
   background:url('../img/svg/21.svg') no-repeat 24px center;
 }
 .title ul li a {
@@ -121,12 +131,13 @@
   color: #006bff;
 }
 .text .input_box {
-  width: 826px;
+
   height: 60px;
   border-radius: 5px;
   border: 2px solid #006bff;
   background: url('../../assets/img/svg/38.svg') no-repeat 24px center;
-  margin: 24px auto;
+  margin: 24px 24px 0;
+
 
 }
 .text .input_box-new{
@@ -155,16 +166,25 @@
 }
 
 .text-btn-box {
-  width: 600px;
+  width: 68%;
   height: 60px;
   text-align: center;
   margin: auto;
+  padding-top: 40px;
 }
 .text-btn {
-  width: 600px;
+  width: 100%;
   height: 60px;
   font-size: 24px;
   font-family: Source Han Sans CN;
   font-weight: 500;
   line-height: 60px;
+}
+
+
+@media screen and (max-width: 1346px) {
+  
+  .s-container{width: 100%;}
+  .commonview-box{width:30%; margin-right: 2%;}
+  .content-box{width:68%}
 }
