@@ -33,7 +33,11 @@
         <div class="title">
           <ul>
             <li class="active">
-              <input type="text" placeholder="输入目录名称..." v-model="momentParentName" />
+              <input
+                type="text"
+                placeholder="输入目录名称..."
+                v-model="momentParentName"
+              />
             </li>
           </ul>
         </div>
@@ -41,7 +45,11 @@
           <ul>
             <li v-for="(item, index) in arr" :key="index">
               <div class="input_box">
-                <input type="text" placeholder="请输入分类名称" v-model="item.name" />
+                <input
+                  type="text"
+                  placeholder="请输入分类名称"
+                  v-model="item.name"
+                />
               </div>
             </li>
           </ul>
@@ -49,8 +57,12 @@
           <ul>
             <li v-for="(item, index) in arr1" :key="index">
               <div class="input_box input_box-new" v-show="true">
-                <input type="text" placeholder="请输入分类名称" v-model="item.name" />
-               
+                <input
+                  type="text"
+                  placeholder="请输入分类名称"
+                  v-model="item.name"
+                />
+
                 <img
                   src="../../assets/img/svg/37.svg"
                   alt=""
@@ -98,32 +110,35 @@ export default {
       arr1: [],
       activeIndex: 0,
       momentParentObj: {},
-      momentParentName: ""
+      momentParentName: "",
     };
   },
   created() {
     let _this = this;
-    findParentCategory().then((res) => {
-      _this.commonviewList = res.data;
-      _this.commonviewListLength = _this.commonviewList.length - 1;
-      if(_this.commonviewList.length > 0){
-        _this.Change(0);
-      }
-      // alert(JSON.stringify(res))
-    });
+    _this.getParent();
   },
   mounted() {
     let _this = this;
   },
   methods: {
+    getParent() {
+      let _this = this;
+      findParentCategory().then((res) => {
+        _this.commonviewList = res.data;
+        _this.commonviewListLength = _this.commonviewList.length - 1;
+        if (_this.commonviewList.length > 0) {
+          _this.Change(0);
+        }
+      });
+    },
     Change(index) {
-
       let _this = this;
       let parentObj = _this.commonviewList[index];
       _this.activeIndex = index;
       _this.momentParentObj = parentObj;
+      alert(index);
       _this.momentParentName = parentObj.name;
-      if(parentObj.name == "新建中..."){
+      if (parentObj.name == "新建中...") {
         _this.momentParentName = "";
       }
 
@@ -156,7 +171,6 @@ export default {
     remove(index) {
       var _this = this;
       _this.arr1.splice(index, 1);
-    
     },
     removeList(index) {
       var _this = this;
