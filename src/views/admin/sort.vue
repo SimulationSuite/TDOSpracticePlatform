@@ -19,7 +19,7 @@
             <img
               src="../../assets/img/svg/37.svg"
               alt=""
-              @click="removeList(index)"
+              @click.stop="removeList(index)"
               v-show="index > commonviewListLength"
             />
             <a href="javascript:;">{{ item.name }} </a>
@@ -115,10 +115,11 @@ export default {
   },
   created() {
     let _this = this;
-    _this.getParent();
+    
   },
   mounted() {
     let _this = this;
+    _this.getParent();
   },
   methods: {
     getParent() {
@@ -128,7 +129,8 @@ export default {
         _this.commonviewListLength = _this.commonviewList.length - 1;
         if (_this.commonviewList.length > 0) {
           _this.Change(0);
-        }
+        };
+        //console.log(_this.commonviewList)
       });
     },
     Change(index) {
@@ -150,6 +152,7 @@ export default {
         _this.arr = res.data;
       });
     },
+    //父分类新建分类
     add() {
       let _this = this;
       if (_this.addFinished == 0) {
@@ -173,10 +176,11 @@ export default {
       _this.arr1.splice(index, 1);
     },
     removeList(index) {
+      //console.log(index)
       var _this = this;
       _this.commonviewList.splice(index, 1);
       _this.addFinished = 0;
-      _this.Change(0);
+     //_this.Change(0);
     },
   },
 };
