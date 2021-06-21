@@ -33,7 +33,7 @@
         <div class="title">
           <ul>
             <li class="active">
-              <input type="text" placeholder="输入目录名称..." v-model="momentParentObj.name" />
+              <input type="text" placeholder="输入目录名称..." v-model="momentParentName" />
             </li>
           </ul>
         </div>
@@ -97,7 +97,8 @@ export default {
       arr: [],
       arr1: [],
       activeIndex: 0,
-      momentParentObj: {}
+      momentParentObj: {},
+      momentParentName: ""
     };
   },
   created() {
@@ -121,11 +122,15 @@ export default {
       let parentObj = _this.commonviewList[index];
       _this.activeIndex = index;
       _this.momentParentObj = parentObj;
+      _this.momentParentName = parentObj.name;
+      if(parentObj.name == "新建中..."){
+        _this.momentParentName = "";
+      }
+
       _this.arr1 = [];
 
       let obj = {};
       obj.parent_category_id = parentObj.id;
-
       findChildCategory(obj).then((res) => {
         _this.arr = res.data;
       });
@@ -151,11 +156,13 @@ export default {
     remove(index) {
       var _this = this;
       _this.arr1.splice(index, 1);
+    
     },
     removeList(index) {
       var _this = this;
       _this.commonviewList.splice(index, 1);
       _this.addFinished = 0;
+      _this.Change(0);
     },
   },
 };
