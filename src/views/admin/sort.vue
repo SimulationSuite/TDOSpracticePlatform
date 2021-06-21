@@ -16,7 +16,12 @@
             :class="{ active: activeIndex == index }"
             @click="Change(index)"
           >
-            <img src="../../assets/img/svg/37.svg" alt="" @click="removeList(index)" v-show="index > commonviewListLength">
+            <img
+              src="../../assets/img/svg/37.svg"
+              alt=""
+              @click="removeList(index)"
+              v-show="index > commonviewListLength"
+            />
             <a href="javascript:;">{{ item.name }} </a>
           </li>
         </ul>
@@ -28,39 +33,29 @@
         <div class="title">
           <ul>
             <li class="active">
-              <input
-                type="text"
-                placeholder="输入目录名称..."          
-              />
+              <input type="text" placeholder="输入目录名称..." v-model="momentParentObj.name" />
             </li>
           </ul>
         </div>
         <div class="text">
           <ul>
-            <!-- <li v-for="(item, index) in commonviewList" :key="index">
+            <li v-for="(item, index) in arr" :key="index">
               <div class="input_box">
-                <input type="text" placeholder="" value="poa" />
+                <input type="text" placeholder="请输入分类名称" v-model="item.name" />
               </div>
-            </li> -->
+            </li>
           </ul>
-          <div class="input_box">
-            <input type="text" placeholder="" value="poa" />
-          </div>
-          <div class="input_box">
-            <input type="text" placeholder="" value="poa" />
-          </div>
-          <div class="input_box">
-            <input type="text" placeholder="" value="poa" />
-          </div>
-          <div class="input_box">
-            <input type="text" placeholder="" value="poa" />
-          </div>
+
           <ul>
-            <li v-for="(item,index) in arr" :key="index">
+            <li v-for="(item, index) in arr1" :key="index">
               <div class="input_box input_box-new" v-show="true">
-                <input type="text" placeholder="请输入分类名称" />
-                {{item.id}}
-                <img src="../../assets/img/svg/37.svg" alt="" @click="remove(index)">
+                <input type="text" placeholder="请输入分类名称" v-model="item.name" />
+               
+                <img
+                  src="../../assets/img/svg/37.svg"
+                  alt=""
+                  @click="remove(index)"
+                />
               </div>
             </li>
           </ul>
@@ -91,57 +86,77 @@
   </div>
 </template>
 <script>
+import { findParentCategory, findChildCategory } from "@/API/api";
+
 export default {
   data() {
     return {
-      commonviewList: [
-        { id: "", name: "共识机制", childen: ["poa", "poa", "poa", "poa"] },
-        { id: "", name: "共识机制", childen: ["poa", "poa", "poa", "poa"] },
-        { id: "", name: "共识机制", childen: ["poa", "poa", "poa", "poa"] },
-        { id: "", name: "共识机制1213", childen: ["poa", "poa", "poa", "poa"] },
-        { id: "", name: "共识机制", childen: ["poa", "poa", "poa", "poa"] },
-      ],
-      commonviewListLength:0,
+      commonviewList: [],
+      commonviewListLength: 0,
+      addFinished: 0,
       arr: [],
-      arr1:[],
+      arr1: [],
       activeIndex: 0,
+      momentParentObj: {}
     };
   },
-  created() {},
+  created() {
+    let _this = this;
+    findParentCategory().then((res) => {
+      _this.commonviewList = res.data;
+      _this.commonviewListLength = _this.commonviewList.length - 1;
+      if(_this.commonviewList.length > 0){
+        _this.Change(0);
+      }
+      // alert(JSON.stringify(res))
+    });
+  },
   mounted() {
     let _this = this;
-    _this.commonviewListLength = _this.commonviewList.length - 1;
   },
   methods: {
     Change(index) {
-      this.activeIndex = index;
-      console.log(index);
+
+      let _this = this;
+      let parentObj = _this.commonviewList[index];
+      _this.activeIndex = index;
+      _this.momentParentObj = parentObj;
+      _this.arr1 = [];
+
+      let obj = {};
+      obj.parent_category_id = parentObj.id;
+
+      findChildCategory(obj).then((res) => {
+        _this.arr = res.data;
+      });
     },
     add() {
       let _this = this;
-      var current = _this.commonviewList.length;
-      var obj = {};
-      obj.name = "新建中...";
-      _this.commonviewList.push(obj);
-      _this.Change(current);
+      if (_this.addFinished == 0) {
+        var current = _this.commonviewList.length;
+        var obj = {};
+        obj.name = "新建中...";
+        _this.commonviewList.push(obj);
+        _this.Change(current);
+        _this.addFinished = 1;
+      }
     },
     addnew() {
       var _this = this;
       var obj = {};
-      _this.arr.push(obj);
+      obj.id = "";
+      obj.name = "";
+      _this.arr1.push(obj);
     },
     remove(index) {
-      console.log(index)
-      var _this = this;  
-      var arrnew = _this.arr.splice(index,1);
-       console.log(arrnew)
+      var _this = this;
+      _this.arr1.splice(index, 1);
     },
     removeList(index) {
-      console.log(index)
       var _this = this;
-      var arrnew = _this.commonviewList.splice(index,1);
-      console.log(_this.commonviewList)
-    }
+      _this.commonviewList.splice(index, 1);
+      _this.addFinished = 0;
+    },
   },
 };
 </script>

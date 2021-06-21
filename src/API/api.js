@@ -506,6 +506,7 @@ var findStudentExperimentReport =function(data){
 	return axios.get('/findStudentExperimentReport?course_id='+data.course_id+'&status='+data.status+'&name='+data.name+'&user_id='+data.user_id+'&perPage=' + data.perPage+ '&page=' +data.page)
 }
 
+
 export{
 	getCity,createToken,login,hardware,online,onlineUsers,searchUser,searchClass,deleteUser,getAdminCourseList,getCourseListByUserId,getCourseById,
 	modifyCourseStatus,getCoursewareBySectionId,modifyUser,getAdminUnpublishedCourseList,getCoursewareAll,insertCourse,getExpirCourseList,
