@@ -29,8 +29,7 @@
             <li class="active">
               <input
                 type="text"
-                value="输入目录名称..."
-                v-model="commonviewList[activeIndex].name"
+                placeholder="输入目录名称..."          
               />
             </li>
           </ul>
@@ -44,7 +43,7 @@
             </li> -->
           </ul>
           <div class="input_box">
-            <input type="text" placeholder="" value="poa" readonly />
+            <input type="text" placeholder="" value="poa" />
           </div>
           <div class="input_box">
             <input type="text" placeholder="" value="poa" />
