@@ -77,6 +77,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/admin/questionbankManagement.vue'),
         meta:{navindex:2},
       },
+      {
+        path: '/admin/sort',//分类
+        name: 'sort',
+        component: () => import(/* webpackChunkName: "about" */ '../views/admin/sort.vue'),
+        meta:{navindex:1},
+      },
 
       
 

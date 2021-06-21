@@ -31,9 +31,10 @@ export default new Vuex.Store({
       },
       { text: "运行实验管理", path: "/admin/experimentManage" },
       { text: "人员管理", path: "/admin/personnelManage" },
+      { text: "分类管理", path: "/admin/sort" },
     ],
     tea_menus: [
-      { text: "课程管理", path: "/teacher" },
+      { text: "开课管理", path: "/teacher" },
       { text: "备课管理", path: "/teacher/lessonPreparationManagement" },
       { text: "作业管理", path: "/teacher/jobManagement"},
       { text: "实验报告管理", path: "/teacher/experimentalReport"},
