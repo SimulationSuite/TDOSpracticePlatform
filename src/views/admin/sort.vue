@@ -16,6 +16,7 @@
             :class="{ active: activeIndex == index }"
             @click="Change(index)"
           >
+            <img src="../../assets/img/svg/37.svg" alt="" @click="removeList(index)" v-show="index > commonviewListLength">
             <a href="javascript:;">{{ item.name }} </a>
           </li>
         </ul>
@@ -100,6 +101,7 @@ export default {
         { id: "", name: "共识机制1213", childen: ["poa", "poa", "poa", "poa"] },
         { id: "", name: "共识机制", childen: ["poa", "poa", "poa", "poa"] },
       ],
+      commonviewListLength:0,
       arr: [],
       arr1:[],
       activeIndex: 0,
@@ -108,6 +110,7 @@ export default {
   created() {},
   mounted() {
     let _this = this;
+    _this.commonviewListLength = _this.commonviewList.length - 1;
   },
   methods: {
     Change(index) {
@@ -132,6 +135,12 @@ export default {
       var _this = this;  
       var arrnew = _this.arr.splice(index,1);
        console.log(arrnew)
+    },
+    removeList(index) {
+      console.log(index)
+      var _this = this;
+      var arrnew = _this.commonviewList.splice(index,1);
+      console.log(_this.commonviewList)
     }
   },
 };
