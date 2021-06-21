@@ -26,7 +26,12 @@
           </li>
         </ul>
         <div class="btn-box">
-          <a class="btnDefault pointer abtn sort-btn" @click="add">新建目录</a>
+          <a
+            class="btnDefault pointer abtn sort-btn"
+            v-if="addFinished == 0"
+            @click="add"
+            >新建目录</a
+          >
         </div>
       </div>
       <div class="content-box" v-if="true">
@@ -115,7 +120,6 @@ export default {
   },
   created() {
     let _this = this;
-    
   },
   mounted() {
     let _this = this;
@@ -129,7 +133,7 @@ export default {
         _this.commonviewListLength = _this.commonviewList.length - 1;
         if (_this.commonviewList.length > 0) {
           _this.Change(0);
-        };
+        }
         //console.log(_this.commonviewList)
       });
     },
@@ -138,19 +142,20 @@ export default {
       let parentObj = _this.commonviewList[index];
       _this.activeIndex = index;
       _this.momentParentObj = parentObj;
-      alert(index);
+      // alert(index);
       _this.momentParentName = parentObj.name;
+      _this.arr1 = [];
+      _this.arr = [];
       if (parentObj.name == "新建中...") {
         _this.momentParentName = "";
+        
+      } else {
+        let obj = {};
+        obj.parent_category_id = parentObj.id;
+        findChildCategory(obj).then((res) => {
+          _this.arr = res.data;
+        });
       }
-
-      _this.arr1 = [];
-
-      let obj = {};
-      obj.parent_category_id = parentObj.id;
-      findChildCategory(obj).then((res) => {
-        _this.arr = res.data;
-      });
     },
     //父分类新建分类
     add() {
@@ -180,7 +185,7 @@ export default {
       var _this = this;
       _this.commonviewList.splice(index, 1);
       _this.addFinished = 0;
-     //_this.Change(0);
+      _this.Change(0);
     },
   },
 };
