@@ -5,6 +5,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     navindex:0,
+    isDisableFlag: false,
 
     teacherNavindex:0, //老师端tab切换
     adminNavindex:0, //管理员端tab切换

@@ -3,7 +3,12 @@
     <div class="s-container">
       <div class="pageTab clearfix">
         <div class="fr">
-          <a class="btnDefault pointer abtn" style="margin-right: 0">保存</a>
+          <a
+            class="btnDefault pointer abtn"
+            style="margin-right: 0"
+            @click="save()"
+            >保存</a
+          >
         </div>
       </div>
     </div>
@@ -148,7 +153,6 @@ export default {
       _this.arr = [];
       if (parentObj.name == "新建中...") {
         _this.momentParentName = "";
-        
       } else {
         let obj = {};
         obj.parent_category_id = parentObj.id;
@@ -186,6 +190,14 @@ export default {
       _this.commonviewList.splice(index, 1);
       _this.addFinished = 0;
       _this.Change(0);
+    },
+    save() {
+      var _this = this;
+      let isTrue = _this.$store.state.isDisableFlag;
+    
+      if (!isTrue) {
+        _this.$store.state.isDisableFlag = true;
+      }
     },
   },
 };
