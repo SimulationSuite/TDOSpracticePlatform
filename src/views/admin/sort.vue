@@ -204,7 +204,11 @@ export default {
 
       let obj = {};
       if (_this.momentParentName.length == 0) {
-        _this.$toast("目录名称为空！", 3000);
+        _this.$toast("目录名称为空", 3000);
+        return;
+      }
+      if (_this.momentParentName.length > 10) {
+        _this.$toast("目录名称长度不能超过10", 3000);
         return;
       }
       obj.parent_category = {
@@ -215,7 +219,11 @@ export default {
       for (let i = 0; i < _this.arr.length; i++) {
         let arrObj = _this.arr[i];
         if (arrObj.name.length == 0) {
-          _this.$toast("分类名称存在空！", 3000);
+          _this.$toast("分类名称存在空", 3000);
+          return;
+        }
+        if (arrObj.name.length > 10) {
+          _this.$toast("分类名称长度不能超过10", 3000);
           return;
         }
         arrTmp.push({ name: arrObj.name, id: arrObj.id });
@@ -223,7 +231,11 @@ export default {
       for (let j = 0; j < _this.arr1.length; j++) {
         let arr1Obj = _this.arr1[j];
         if (arr1Obj.name.length == 0) {
-          _this.$toast("分类名称存在空！", 3000);
+          _this.$toast("分类名称存在空", 3000);
+          return;
+        }
+        if (arr1Obj.name.length > 10) {
+          _this.$toast("分类名称长度不能超过10", 3000);
           return;
         }
         arrTmp.push({ name: arr1Obj.name, id: arr1Obj.id });
