@@ -47,6 +47,7 @@
                 type="text"
                 placeholder="输入目录名称..."
                 v-model="momentParentName"
+                v-emoji
               />
             </li>
           </ul>
@@ -59,6 +60,7 @@
                   type="text"
                   placeholder="请输入分类名称"
                   v-model="item.name"
+                  v-emoji
                 />
               </div>
             </li>
@@ -71,6 +73,7 @@
                   type="text"
                   placeholder="请输入分类名称"
                   v-model="item.name"
+                  v-emoji
                 />
 
                 <img
@@ -168,6 +171,7 @@ export default {
         var current = _this.commonviewList.length;
         var obj = {};
         obj.name = "新建中...";
+        obj.id = "";
         _this.commonviewList.push(obj);
         _this.Change(current);
         _this.addFinished = 1;
@@ -193,11 +197,42 @@ export default {
     },
     save() {
       var _this = this;
-      let isTrue = _this.$store.state.isDisableFlag;
-    
-      if (!isTrue) {
-        _this.$store.state.isDisableFlag = true;
+
+      let obj = {};
+      if (_this.momentParentName.length == 0) {
+        _this.$toast("目录名称为空！", 3000);
+        return;
       }
+      obj.parent_category = {
+        name: _this.momentParentName,
+        id: _this.momentParentObj.id,
+      };
+      let arrTmp = [];
+      for (let i = 0; i < _this.arr.length; i++) {
+        let arrObj = _this.arr[i];
+        if (arrObj.name.length == 0) {
+          _this.$toast("分类名称存在空！", 3000);
+          return;
+        }
+        arrTmp.push({ name: arrObj.name, id: arrObj.id });
+      }
+      for (let j = 0; j < _this.arr1.length; j++) {
+        let arr1Obj = _this.arr1[j];
+        if (arr1Obj.name.length == 0) {
+          _this.$toast("分类名称存在空！", 3000);
+          return;
+        }
+        arrTmp.push({ name: arr1Obj.name, id: arr1Obj.id });
+      }
+      obj.categories = arrTmp;
+
+      alert(JSON.stringify(obj))
+
+      // if (_this.addFinished == 1) {
+      //   _this.commonviewList.splice(_this.commonviewList.length - 1, 1);
+      //   _this.addFinished = 0;
+      //   _this.Change(0);
+      // }
     },
   },
 };
