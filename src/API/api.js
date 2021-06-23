@@ -411,7 +411,7 @@ var findExperimentReportByExperimentAndUserId = function(data){
 
 //班级学生信息
 var getStudentsByClasses = function(data){
-	return axios.get('/get_students_by_classes?classIds='+data.classIds+ '&per_page=' + data.per_page+ '&page=' + data.page)
+	return axios.get('/get_students_by_classes?name='+data.name+'&studentId='+data.studentId+'&classIds='+data.classIds+ '&per_page=' + data.per_page+ '&page=' + data.page)
 }
 
 //修改作业名称
