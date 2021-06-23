@@ -111,7 +111,11 @@
   </div>
 </template>
 <script>
-import { findParentCategory, findChildCategory } from "@/API/api";
+import {
+  findParentCategory,
+  findChildCategory,
+  insertCategoryList,
+} from "@/API/api";
 
 export default {
   data() {
@@ -226,13 +230,19 @@ export default {
       }
       obj.categories = arrTmp;
 
-      alert(JSON.stringify(obj))
+      insertCategoryList(obj)
+        .then((res) => {
+          _this.$toast("保存成功！", 3000);
 
-      // if (_this.addFinished == 1) {
-      //   _this.commonviewList.splice(_this.commonviewList.length - 1, 1);
-      //   _this.addFinished = 0;
-      //   _this.Change(0);
-      // }
+          if (_this.addFinished == 1) {
+            _this.commonviewList.splice(_this.commonviewList.length - 1, 1);
+            _this.addFinished = 0;
+          }
+          _this.getParent();
+        })
+        .catch((err) => {
+          _this.$toast("保存失败！", 3000);
+        });
     },
   },
 };

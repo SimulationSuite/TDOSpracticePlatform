@@ -506,6 +506,11 @@ var findStudentExperimentReport =function(data){
 	return axios.get('/findStudentExperimentReport?course_id='+data.course_id+'&status='+data.status+'&name='+data.name+'&user_id='+data.user_id+'&perPage=' + data.perPage+ '&page=' +data.page)
 }
 
+//分类管理
+var insertCategoryList = function(data){
+	return axios.post('/insertCategoryList', data,{headers: {'Content-Type':'application/json'}})
+  }
+
 
 export{
 	getCity,createToken,login,hardware,online,onlineUsers,searchUser,searchClass,deleteUser,getAdminCourseList,getCourseListByUserId,getCourseById,
@@ -521,7 +526,7 @@ export{
 	getStudentsNotes,stduentUploadNotes,findAllExperimentByCategoryId,updateUserPassword,deleteChapterSectionCourseById,delete_remark,stduentSubmitHomework,stduentSaveHomework
 	,prepareCourse,modifyChapterNameById,modifySectionNameById,modifySmallSectionNameById,updateExperiment,modifyAssignmentStatusById,downloadCode,modifyExpiredCourseStatus
 	,getChangedCourseList,modifyCourseName,getCourseListNoNameByUserId,deleteAssignmentById,layout,
-  getStudentsByClasseId,createAndRunContainers,stopExperiment,findStudentExperimentReport
+  getStudentsByClasseId,createAndRunContainers,stopExperiment,findStudentExperimentReport,insertCategoryList
 }
 
 function getJson (data) {
