@@ -4,13 +4,13 @@
            <a class="back pointer" @click="backClass"></a>
            <div class="fr">
             <div class="n-d-serach">
-                <input placeholder="请输入学生学号" type="text" v-emoji autocomplete="off"  />
+                <input placeholder="请输入学生学号" type="text" v-emoji autocomplete="off"  v-model="studentId"/>
                 
              </div>
               <div class="n-d-serach">
-                <input placeholder="请输入学生姓名" type="text" v-emoji autocomplete="off"  />
+                <input placeholder="请输入学生姓名" type="text" v-emoji autocomplete="off"  v-model="studentName"/>
               </div>
-              <el-select v-model="class_value" placeholder="请选择班级"  @change="studentSelectClass">
+              <el-select v-model="class_value" placeholder="请选择班级"  @change="studentSelectClass" >
                 <el-option
                   v-for="item in classList"
                   :key="item.id"
@@ -19,7 +19,7 @@
                 </el-option>
               </el-select>
 
-              <a class="n-btn-serach">搜索</a>
+              <a class="n-btn-serach" @click="sureSearchStudent">搜索</a>
       
            </div>
         </div>
@@ -125,6 +125,10 @@ export default{
           perPage: 10,//用户列表每页条数
           curPage:1,//当前页数
           
+          studentId:'',//搜素框学生学号
+          studentName:'',//搜素框学生学号
+
+          checkedClass:{},//当前选中的班级对象
 
         
         }
@@ -179,10 +183,10 @@ export default{
           if(that.class_value!=''){
             let obj = {};
             obj.id = that.class_value
-            that.$emit('handleCurrentChange',val,obj,that.classList)  
+            that.$emit('handleCurrentChange',val,obj,that.classList,that.studentId,that.studentName)  
           }
           else{
-            that.$emit('handleCurrentChange',val,'',that.classList)  
+            that.$emit('handleCurrentChange',val,'',that.classList,that.studentId,that.studentName)  
           }
          
         },
@@ -196,16 +200,26 @@ export default{
                obj = that.classList[i]
             }
           }
-          
-          that.$emit('handleCurrentChange',1,obj,that.classList)
-          that.curPage = 1
-          console.log(that.curPage)
-        },
 
+          that.checkedClass = obj
+          //console.log(obj);
+          
+          //that.$emit('handleCurrentChange',1,obj,that.classList)
+          that.curPage = 1
+          //console.log(that.curPage)
+        },
+  
         handleSelectionChange(val) {
           //表示页面手动点击全选按钮
           this.multipleSelection  = val;          
         
+        },
+
+        //头部按钮点击搜索
+        sureSearchStudent(){
+          let that = this;
+      
+          that.$emit('handleCurrentChange',1,that.checkedClass,that.classList,that.studentId,that.studentName)
         },
         select_all(val){
           let that = this;
@@ -280,6 +294,7 @@ export default{
         //返回班级列表
         backClass(){
            this.$emit('backClass');
+       
         }
     },
     mounted(){
