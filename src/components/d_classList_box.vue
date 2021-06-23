@@ -138,13 +138,12 @@ export default{
               that.page = params[0];
            }
 
-           if(params[3]!=''){
-              that.studentId = params[3];
-           }
+          params[3]!=''?that.studentId = params[3]:that.studentId =''
+         
 
-            if(params[4]!=''){
-              that.studentName = params[4];
-           }
+           params[4]!=''?that.studentName = params[4]:that.studentName =''
+              
+           //console.log(params)
            
            if(params[1]!=''){
               
@@ -225,7 +224,7 @@ export default{
 
             obj.name=that.studentName;
             obj.studentId = that.studentId;
-        
+
             for(let i=0;i<list.length;i++){
                 classIds.push(list[i].id);
             }

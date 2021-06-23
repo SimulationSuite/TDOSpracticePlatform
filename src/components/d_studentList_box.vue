@@ -218,7 +218,6 @@ export default{
         //头部按钮点击搜索
         sureSearchStudent(){
           let that = this;
-      
           that.$emit('handleCurrentChange',1,that.checkedClass,that.classList,that.studentId,that.studentName)
         },
         select_all(val){
