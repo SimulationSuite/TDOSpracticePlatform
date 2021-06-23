@@ -128,6 +128,7 @@ export default {
       activeIndex: 0,
       momentParentObj: {},
       momentParentName: "",
+      isSaving: false,
     };
   },
   created() {
@@ -202,6 +203,10 @@ export default {
     save() {
       var _this = this;
 
+      if (_this.isSaving == true) {
+        return;
+      }
+
       let obj = {};
       if (_this.momentParentName.length == 0) {
         _this.$toast("目录名称为空", 3000);
@@ -242,9 +247,12 @@ export default {
       }
       obj.categories = arrTmp;
 
+      _this.isSaving = true;
+      
       insertCategoryList(obj)
         .then((res) => {
           _this.$toast("保存成功！", 3000);
+          _this.isSaving = false;
 
           if (_this.addFinished == 1) {
             _this.commonviewList.splice(_this.commonviewList.length - 1, 1);
@@ -254,6 +262,7 @@ export default {
         })
         .catch((err) => {
           _this.$toast("保存失败！", 3000);
+          _this.isSaving = false;
         });
     },
   },
