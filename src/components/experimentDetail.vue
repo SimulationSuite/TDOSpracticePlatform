@@ -15,7 +15,7 @@
                 <div class="p-ItsCourse">
                     <!-- 所属课程： -->
                 </div>
-                <div class="btnbox"><a class="btnDefault pointer" @click="startExperiment">进入实验</a></div>
+                <div class="btnbox"><a class="btnDefault pointer" v-if="canClick" @click="startExperiment">进入实验</a></div>
             </div>
         </div>
         <div class="nav">
@@ -112,6 +112,7 @@ export default {
             ],
             experiment:{},//实验详情
             courseId:'',
+            canClick:false,
 
         }
     },
@@ -128,6 +129,7 @@ export default {
             that.detailShow = true
             that.courseId=courseId
             that.activeIndex = 1;
+            that.canClick=false;
             that.findAllByType(experId)
         },
         //点击进入实验
@@ -155,6 +157,7 @@ export default {
             obj.page=1
             findAllByType(obj).then(res=>{
                 if (res.code==200) {
+                    that.canClick=true;
                     //console.log(res.data)
                     that.experiment = res.data
                     for(let i = 0;i<res.data.imagesinfo.length;i++){

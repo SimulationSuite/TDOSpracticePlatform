@@ -194,6 +194,7 @@ export default {
                    let scroll_h = (parseInt(h1)-parseInt(h))+135;            
                 document.documentElement.scrollTop  = scroll_h;
               },100)
+      
             })
          
         },

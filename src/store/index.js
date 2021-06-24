@@ -11,15 +11,15 @@ export default new Vuex.Store({
     adminNavindex:0, //管理员端tab切换
     studentNavindex:0, //学生端tab切换
   
-    // uploadUrl:'http://ibwedu.f3322.net:8111/upload_excel',
-    // pic_Url:'http://ibwedu.f3322.net:8888',
-    // uploadUrlExcel: 'http://ibwedu.f3322.net:8111/upload_qb_excel',
-    // dowmloadExcel: 'http://ibwedu.f3322.net:8111/download_qb_excel',
-
-    uploadUrl:'http://192.168.1.3:8111/upload_excel',
+    uploadUrl:'http://ibwedu.f3322.net:8111/upload_excel',
     pic_Url:'http://ibwedu.f3322.net:8888',
-    uploadUrlExcel: 'http://192.168.1.3:8111/upload_qb_excel',
-    dowmloadExcel: 'http://192.168.1.3:8111/download_qb_excel',
+    uploadUrlExcel: 'http://ibwedu.f3322.net:8111/upload_qb_excel',
+    dowmloadExcel: 'http://ibwedu.f3322.net:8111/download_qb_excel',
+
+    // uploadUrl:'http://192.168.1.3:8111/upload_excel',
+    // pic_Url:'http://ibwedu.f3322.net:8888',
+    // uploadUrlExcel: 'http://192.168.1.3:8111/upload_qb_excel',
+    // dowmloadExcel: 'http://192.168.1.3:8111/download_qb_excel',
 
     ad_menus: [
       { text: "统计分析", path: "/admin" },

@@ -40,8 +40,8 @@
                   <a class="icon_jm pointer" @click="isHide=!isHide" v-if="isHide"></a>
                 </div>
 
-                <div class="operation_box 22"  v-if="!isOpen"  ref="imageWrapper" >
-                   <a class="btn-open pointer" v-if="!isOpen" @click="execContainer(0)">开启全部虚拟机</a>
+                <div class="operation_box 22"  v-if="!isOpen&&canShow"  ref="imageWrapper" >
+                   <a class="btn-open pointer" v-if="!isOpen&&canShow" @click="execContainer(0)">开启全部虚拟机</a>
                 </div>
 
                 <div class="operation_box"  ref="imageWrapper" v-show="isOpen && virtualMachine==iindex" :id="'Screenshots'+iindex"
@@ -253,6 +253,7 @@ export default {
             useractions:false,
 
             isFirst:true,
+            canShow:false,
            
 
         }
@@ -335,6 +336,7 @@ export default {
             obj.courseId = courseId
             createContainers(obj).then(res=>{
                 if (res.code==200) {
+                    that.canShow=true;
                    
                     for(var i =0;i<res.data.length;i++){
                          res.data[i].isFirst = true;

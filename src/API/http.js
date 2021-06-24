@@ -4,9 +4,9 @@ import router from '@/router/index'
 //自定义配置新建一个axios实例
 const http = axios.create({
 
-	//baseURL: 'http://ibwedu.f3322.net:8111',
+	baseURL: 'http://ibwedu.f3322.net:8111',
 
-	baseURL: 'http://192.168.1.3:8111',
+	//baseURL: 'http://192.168.1.3:8111',
 
 	headers: {
 		'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
