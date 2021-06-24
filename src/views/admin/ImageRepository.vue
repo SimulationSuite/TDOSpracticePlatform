@@ -367,7 +367,6 @@ export default {
          return that.$toast('请选择镜像类型',2000)
       }
       that.show_Add = false
-      that.showLoading = true
       let obj = {};
       obj.imageName = that.Mirroring.name;
       obj.introduction = that.Mirroring.introduction;
@@ -377,11 +376,10 @@ export default {
             that.kind = '';
             if(res.code==200){
                 that.show_Add = false
-                that.showLoading = true
+                this.$toast("上传成功，请稍后查看",3000)
                 that.getImagequoteList(-1,'',1);
             }else{
                 that.show_Add = false
-                that.showLoading = false
                 this.$toast("上传失败",3000)
                 that.getImagequoteList(-1,'',1);
             }
