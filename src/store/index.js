@@ -5,15 +5,21 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     navindex:0,
+    isDisableFlag: false,
 
-    teacherNavindex:0, //老师端 学生tab切换
-    adminNavindex:0, //老师端学生tab切换
-    studentNavindex:0, //老师端学生tab切换
+    teacherNavindex:0, //老师端tab切换
+    adminNavindex:0, //管理员端tab切换
+    studentNavindex:0, //学生端tab切换
+  
+    // uploadUrl:'http://ibwedu.f3322.net:8111/upload_excel',
+    // pic_Url:'http://ibwedu.f3322.net:8888',
+    // uploadUrlExcel: 'http://ibwedu.f3322.net:8111/upload_qb_excel',
+    // dowmloadExcel: 'http://ibwedu.f3322.net:8111/download_qb_excel',
 
-    uploadUrl:'http://ibwedu.f3322.net:8111/upload_excel',
+    uploadUrl:'http://192.168.1.3:8111/upload_excel',
     pic_Url:'http://ibwedu.f3322.net:8888',
-    uploadUrlExcel: 'http://ibwedu.f3322.net:8111/upload_qb_excel',
-    dowmloadExcel: 'http://ibwedu.f3322.net:8111/download_qb_excel',
+    uploadUrlExcel: 'http://192.168.1.3:8111/upload_qb_excel',
+    dowmloadExcel: 'http://192.168.1.3:8111/download_qb_excel',
 
     ad_menus: [
       { text: "统计分析", path: "/admin" },
@@ -31,9 +37,10 @@ export default new Vuex.Store({
       },
       { text: "运行实验管理", path: "/admin/experimentManage" },
       { text: "人员管理", path: "/admin/personnelManage" },
+      { text: "分类管理", path: "/admin/sort" },
     ],
     tea_menus: [
-      { text: "开课管理", path: "/teacher" },
+      { text: "课程管理", path: "/teacher" },
       { text: "备课管理", path: "/teacher/lessonPreparationManagement" },
       { text: "作业管理", path: "/teacher/jobManagement"},
       { text: "实验报告管理", path: "/teacher/experimentalReport"},

@@ -617,6 +617,7 @@ export default {
             const url =uri
             this.$nextTick(function(){
            
+            //console.log(uri)
             that.rfb = new RFB(document.getElementById('screen'), url, {
             // 向vnc 传递的一些参数，比如说虚拟机的开机密码等
                 credentials: {password: '123456' }
@@ -759,6 +760,7 @@ export default {
                     var url = canvas.toDataURL('image/png')
                     that.dataURL = url
                     that.yourContent =that.yourContent+ '<p><img src="'+that.dataURL+'"/></p>'
+                    that.$toast('截图成功，请在实验报告中查询',3000)
                 })
             })
         },

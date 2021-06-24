@@ -58,6 +58,8 @@ export default{
             per_page:10,
             page:1,
             total:0,
+            studentId:'',//搜素框学生学号
+            studentName:'',//搜素框学生学号
         }
     },
     components:{studentList},
@@ -118,20 +120,30 @@ export default{
         //学生列表返回班级列表
         backClass(){
           this.isStudent = false;
+              this.studentName='';
+           this.studentId='';
           this.$emit('getCourseById')
 
         },
 
         //子组件调用父组件
-        handleCurrentChange(params){ //第一个参数是第一个页数，第二个参数是当前选中的班级,第三个参数是当前班级以及选中的人数
+        handleCurrentChange(params){ //第一个参数是第一个页数，第二个参数是当前选中的班级,第三个参数是当前班级以及选中的人数 ,第四个参数学号，第五个参数姓名
            let that = this;
            let class_id = [];
 
            let temporary_checkList = params[2]
-           console.log(params);
+           //console.log(params);
+          
            if(params[0]!=''){
               that.page = params[0];
            }
+
+          params[3]!=''?that.studentId = params[3]:that.studentId =''
+         
+
+           params[4]!=''?that.studentName = params[4]:that.studentName =''
+              
+           //console.log(params)
            
            if(params[1]!=''){
               
@@ -202,7 +214,7 @@ export default{
 
 
         //班级学生信息
-        searchClassStudents(list){
+        searchClassStudents(list,){
             //param list当前选中的班级
             let that = this;
             let obj = {}
@@ -210,8 +222,9 @@ export default{
             obj.per_page = that.per_page
             obj.page = that.page
 
+            obj.name=that.studentName;
+            obj.studentId = that.studentId;
 
-        
             for(let i=0;i<list.length;i++){
                 classIds.push(list[i].id);
             }
@@ -268,7 +281,8 @@ export default{
                 obj.page = that.page
                 obj.classIds = [];
                 obj.classIds.push(that.classList[j].id)
-
+                obj.name=''
+                obj.studentId = ''
                 //查询每个班级下面的学生
                 if(that.classList[j].checked==1){
                     getStudentsByClasses(obj).then(res=> {
@@ -317,9 +331,9 @@ export default{
     .classList_div{background: @background; min-height:280px; }
     .classList_intro{padding:20px 0; font-size: 18px; color: @fontColor1;text-align: center;
     span{display: inline-block; margin:0 15px;}
-    .s1{background: url(../assets/img/rad1.png) left center no-repeat; padding-left: 26px;}
-    .s2{background: url(../assets/img/radh1.png) left center no-repeat; padding-left: 26px;}
-    .s3{background: url(../assets/img/radh2.png) left center no-repeat; padding-left: 26px;}
+    .s1{background: url(../assets/img/rad2.png) left center no-repeat; padding-left: 26px; background-size: 18px; -webkit-background-size: 18px;}
+    .s2{background: url(../assets/img/radh11.png) left center no-repeat; padding-left: 26px;background-size: 18px; -webkit-background-size: 18px;}
+    .s3{background: url(../assets/img/radh2.png) left center no-repeat; padding-left: 26px;background-size: 18px; -webkit-background-size: 18px;}
     }
 }
 

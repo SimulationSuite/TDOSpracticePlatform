@@ -418,6 +418,10 @@ button:focus{border:0 none;outline: none;}
 /*记录笔记弹窗*/
 .dialog_record{
   .el-dialog__body{padding: 0 20px;}
+  -webkit-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+user-select:none;
 }
 
 
@@ -463,6 +467,7 @@ p{
 }
 }
 
+.el-textarea__inner{resize: none;}
 
 .el-scrollbar.is-empty .el-select-dropdown__wrap { 
   height:0 
@@ -485,4 +490,5 @@ p{
     .el-scrollbar__wrap{overflow-x: hidden;}
   }
 }
+
 
